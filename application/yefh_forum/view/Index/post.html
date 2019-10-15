@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="__CSS__/reset.css">
+  <link rel="stylesheet" href="__CSS__/post.css">
+  <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css">
+  <title>首页</title>
+
+</head>
+
+<body>
+  <div id="container">
+    <!-- 顶部导航条 -->
+    <header>
+    </header>
+    <!-- 主体内容 -->
+    <form action="{:url('doPost',['sid'=>1])}">
+      <section>
+        <div class="post-title">
+          <label for="title-input">标题</label>
+          <input type="text" id="title-input" name="mtitle">
+        </div>
+        <input type="hidden" name="mcontent" id="editor_txt">
+        <div id="toolbar" class="toolbar">
+        </div>
+        <div id="editor-content" class="editor-content">
+          <!--可使用 min-height 实现编辑区域自动增加高度-->
+          <p>请输入内容</p>
+        </div>
+        <button class="layui-btn layui-btn-lg layui-btn-normal" id="submitBtn"
+          style="background-color: #8829ff; margin-top:20px">提交</button>
+      </section>
+    </form>
+    <div id="pageContainer"></div>
+    <footer>
+      <ul>
+        <li class="title">关于我们</li>
+        <li><a href="">简介</a></li>
+        <li><a href="">加入我们</a></li>
+        <li><a href="./contact">联系我们</a></li>
+      </ul>
+      <ul>
+        <li class="title">网站条款</li>
+        <li><a href="">版权说明</a></li>
+        <li><a href="">隐私条款</a></li>
+        <li><a href="">权力声明</a></li>
+      </ul>
+      <ul>
+        <li class="title">帮助中心</li>
+        <li><a href="">玩转磨房</a></li>
+        <li><a href="">推荐阅读</a></li>
+        <li><a href="">友情链接</a></li>
+      </ul>
+      <ul>
+        <li class="title">关注我们</li>
+        <li><a href="">新浪微博</a></li>
+        <li><a href="">yfh-xiaobo</a></li>
+        <li><a href="">服务</a></li>
+      </ul>
+      <div>
+        <img class="QR-code" src="__IMG__/QR_code.png" alt="">
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="__STATIC__/common/jquery/jquery.js"></script>
+<script src="__STATIC__/common/wangEditor/wangEditor.min.js"></script>
+<script>
+  var E = window.wangEditor
+  var editor = new E('#toolbar', '#editor-content')  // 两个参数也可以传入 elem 对象，class 选择器
+  editor.create()
+  $(function () {
+    $("header").load("../Common/header.html");
+    $('#submitBtn').on('click', function () {
+      var editor_txt = editor.txt.html();
+      $("#editor_txt").val(editor_txt);
+    })
+    // input事件
+    $('#title-input').on('focus', function () {
+      $(this).css('border', '1px solid #1e9fff')
+    })
+  })
+</script>
+
+</html>

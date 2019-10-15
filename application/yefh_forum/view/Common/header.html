@@ -1,0 +1,29 @@
+<ul>
+  <li class="logo">DHS</li>
+  <li><a href="{:url('Index/index')}">首页</a></li>
+  <li class="forum-item">
+    <a href="{:url('Index/view')}">论坛</a>
+    <ul class="forum-menu">
+      {volist name="sec" id="secrow"}
+      <li><a href="{:url('index/view')}">{$secrow.sname}</a></li>
+      {/volist}
+    </ul>
+  </li>
+  <li><a href="{:url('Index/post')}">发帖</a></li>
+  <li><a href="{:url('User/contact')}">联系</a></li>
+  <li><a href="{:url('Index/person')}">信息</a></li>
+</ul>
+<div class="avatar-box">
+  <span class="avatar">
+    <img src="__STATIC__/upload/avatar/default.jpg" alt="">
+  </span>
+  <span class="username">{$Think.session.unick}</span>
+</div>
+<div class="login-reg">
+  {if condition="$Think.session.unick != ''"}
+  <a href="{:url('Index/logout')}">注销</a>
+  {else}
+  <a href="{:url('User/login')}">登录</a>
+  {/if}
+  <a class="reg" href="{:url('User/register')}">注册</a>
+</div>

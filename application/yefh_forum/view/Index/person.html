@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport"
+    content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <link rel="stylesheet" href="__CSS__/reset.css">
+  <link rel="stylesheet" href="__CSS__/person.css">
+  <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css">
+  <title>帖子详细内容</title>
+</head>
+
+<body>
+  <div id="container">
+    <!-- 顶部导航条 -->
+    <header>
+    </header>
+    <!-- 主体内容 -->
+    <section>
+      <div class="person-avatar">
+        <span class="avatar">
+          <img src="__STATIC__/upload/avatar/default.jpg" alt="">
+        </span>
+        <button type="button" class="layui-btn" id="avatarBtn">
+          <i class="layui-icon">&#xe67c;</i>更换头像
+        </button>
+      </div>
+      <div id="change-pa">
+        <form class="layui-form" action="{:url('doChangePa')}" method="post">
+          <div class="layui-form-item">
+            <label class="layui-form-label">用户名：</label>
+            <div class="layui-input-inline">
+              <input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">旧密码：</label>
+            <div class="layui-input-inline">
+              <input type="password" name="password" required lay-verify="required" autocomplete="off"
+                class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item">
+            <label class="layui-form-label">新密码：</label>
+            <div class="layui-input-inline">
+              <input type="password" name="password" required lay-verify="required" autocomplete="off"
+                class="layui-input">
+            </div>
+          </div>
+          <div class="layui-form-item submitbox">
+            <button class="layui-btn layui-btn-normal" lay-submit lay-filter="formDemo">修改</button>
+            <button type="reset" class="layui-btn layui-btn-primary">清空</button>
+          </div>
+        </form>
+      </div>
+    </section>
+    <footer>
+      <ul>
+        <li class="title">关于我们</li>
+        <li><a href="">简介</a></li>
+        <li><a href="">加入我们</a></li>
+        <li><a href="./contact">联系我们</a></li>
+      </ul>
+      <ul>
+        <li class="title">网站条款</li>
+        <li><a href="">版权说明</a></li>
+        <li><a href="">隐私条款</a></li>
+        <li><a href="">权力声明</a></li>
+      </ul>
+      <ul>
+        <li class="title">帮助中心</li>
+        <li><a href="">玩转磨房</a></li>
+        <li><a href="">推荐阅读</a></li>
+        <li><a href="">友情链接</a></li>
+      </ul>
+      <ul>
+        <li class="title">关注我们</li>
+        <li><a href="">新浪微博</a></li>
+        <li><a href="">yfh-xiaobo</a></li>
+        <li><a href="">服务</a></li>
+      </ul>
+      <div>
+        <img class="QR-code" src="__IMG__/QR_code.png" alt="">
+      </div>
+    </footer>
+  </div>
+</body>
+<script src="__STATIC__/common/jquery/jquery.js"></script>
+<script src="__STATIC__/common/layui/layui.js"></script>
+<script>
+  layui.use('upload', function () {
+    var upload = layui.upload;
+    //执行实例
+    var uploadInst = upload.render({
+      elem: '#avatarBtn' //绑定元素
+      , url: '/upload/' //上传接口
+      , done: function (res) {
+        //上传完毕回调
+      }
+      , error: function () {
+        //请求异常回调
+      }
+    });
+  });
+  layui.use('form', function () {
+    var form = layui.form;
+    //监听提交
+    form.on('submit(formDemo)', function (data) {
+      // layer.msg(JSON.stringify(data.field));
+    });
+  });
+  $(document).ready(function () {
+    $("header").load("../Common/header.html");
+  });
+</script>
+
+</html>
