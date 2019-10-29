@@ -25,6 +25,7 @@ class User extends Controller
     // 判断查询结果，实现跳转
     if($re){
       session('unick', $re['unick']);
+      session('uimg', $re['uimg']);
       $this->success('登录成功', 'Index/index');
     }else{
       $this->error('登录失败', 'User/login');
@@ -37,8 +38,32 @@ class User extends Controller
   }
   // 1711140136-执行注册处理
   public function doRegister()
-  { 
-    $this->success('注册成功', 'User/login');
+  {
+    config("database.username", "change");
+    config("database.password", "66666666");
+    $unick = input("username");
+    $upa = input("password");
+    $uemail = input("email");
+    $utel = input("phone");
+    // 查询数据库判断是否存在这个用户
+    $checkRe = db("user")->where("unick",$unick)->find();
+    if(empty($checkRe)){
+      $info = [
+        'unick' => $unick,
+        'upa' => md5($upa),
+        'uemail' => $uemail,
+        'utel' => $utel,
+        'uimg' => "default.png"
+      ];
+      $re = db("user")->insert($info);
+      if($re == 1){
+        $this->success("注册".$unick."成功", "User/login");
+      }else{
+        $this->success('注册失败！', 'User/register');
+      }
+    }else{
+      $this->success("注册失败,该名称已被注册");
+    }
   }
   // 1711140136-联系我们
   public function contact()

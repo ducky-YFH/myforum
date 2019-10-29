@@ -20,6 +20,12 @@ create table yefh_user
   uemail varchar(35) not null,
   utel varchar(15) not null
 );
+-- 添加uimg字段，存储用户头像路径
+ALTER TABLE yefh_user ADD uimg VARCHAR(100) not null;
+
+-- 头像保存的位置：public/static/upload/avatar/
+
+
 -- 1711140136测试数据
 insert into yefh_user
   (unick,upa,uemail,utel)

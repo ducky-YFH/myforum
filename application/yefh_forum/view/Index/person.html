@@ -21,32 +21,34 @@
     <section>
       <div class="person-avatar">
         <span class="avatar">
-          <img src="__STATIC__/upload/avatar/default.jpg" alt="">
+          <img src="__STATIC__/upload/avatar/{$Think.session.uimg}" alt="">
         </span>
-        <button type="button" class="layui-btn" id="avatarBtn">
-          <i class="layui-icon">&#xe67c;</i>更换头像
-        </button>
+        <form action="{:url('upMe')}" enctype="multipart/form-data" method="post">
+          <div class="filebox">
+            <a href="javascript:;">点击选择图片</a>
+            <input type="file" name="avatar">
+          </div>
+          <button>上传头像</button>
+        </form>
       </div>
       <div id="change-pa">
         <form class="layui-form" action="{:url('doChangePa')}" method="post">
           <div class="layui-form-item">
-            <label class="layui-form-label">用户名：</label>
+            <!-- <label class="layui-form-label">用户名：</label> -->
             <div class="layui-input-inline">
-              <input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input">
+              <input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="用户名">
             </div>
           </div>
           <div class="layui-form-item">
-            <label class="layui-form-label">旧密码：</label>
+            <!-- <label class="layui-form-label">旧密码：</label> -->
             <div class="layui-input-inline">
-              <input type="password" name="password" required lay-verify="required" autocomplete="off"
-                class="layui-input">
+              <input type="password" name="password" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="旧密码">
             </div>
           </div>
           <div class="layui-form-item">
-            <label class="layui-form-label">新密码：</label>
+            <!-- <label class="layui-form-label">新密码：</label> -->
             <div class="layui-input-inline">
-              <input type="password" name="password" required lay-verify="required" autocomplete="off"
-                class="layui-input">
+              <input type="password" name="password" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="新密码">
             </div>
           </div>
           <div class="layui-form-item submitbox">
@@ -90,20 +92,6 @@
 <script src="__STATIC__/common/jquery/jquery.js"></script>
 <script src="__STATIC__/common/layui/layui.js"></script>
 <script>
-  layui.use('upload', function () {
-    var upload = layui.upload;
-    //执行实例
-    var uploadInst = upload.render({
-      elem: '#avatarBtn' //绑定元素
-      , url: '/upload/' //上传接口
-      , done: function (res) {
-        //上传完毕回调
-      }
-      , error: function () {
-        //请求异常回调
-      }
-    });
-  });
   layui.use('form', function () {
     var form = layui.form;
     //监听提交

@@ -6,19 +6,19 @@ use think\Controller;
 
 class Index extends Controller
 {
-  // 检查登录状态
+  // 1711140136-检查登录状态
   public function check()
   {
     if (!session('?unick')) {
       $this->error('你尚未登录', 'User/login');
     }
   }
-  // 论坛门户页
+  // 1711140136-论坛门户页
   public function index()
   {
     return view();
   }
-  // 帖子列表页
+  // 1711140136-帖子列表页
   public function view()
   {
     // 查询数据
@@ -28,13 +28,13 @@ class Index extends Controller
       ->select();
     return view("", ["mes" => $re]);
   }
-  // 帖子发布页
+  // 1711140136-帖子发布页
   public function post()
   {
     $this->check();
     return view();
   }
-  // 执行发帖处理
+  // 1711140136-执行发帖处理
   public function doPost()
   {
     $this->check();
@@ -56,49 +56,89 @@ class Index extends Controller
       $this->error("发帖失败！");
     }
   }
-  // 帖子详细页
+  // 1711140136-帖子详细页
   public function detail()
   {
     return view();
   }
-  // 回复帖子
+  // 1711140136-回复帖子
   public function doRes()
   {
     $this->check();
     config("database.username", "change");
     config("database.password", "66666666");
   }
-  // 渲染修改密码表单
+  // 1711140136-渲染修改密码表单
   public function changePa()
   {
     $this->check();
     return view();
   }
-  // 执行修改密码
+  // 1711140136-执行修改密码
   public function doChangePa()
   {
     config("database.username", "change");
     config("database.password", "66666666");
   }
-  // 渲染上传用户头像表单
+  // 1711140136-渲染上传用户头像表单
   public function me()
   {
     $this->check();
     return view();
   }
-  // 上传（更新）头像
+  // 1711140136-上传（更新）头像
   public function upMe()
   {
     config("database.username", "change");
     config("database.password", "66666666");
+    // 获取上传文件
+    $file = request()->file("avatar");
+    // 定义上传文件目的地址
+    $path = ROOT_PATH."public/static/upload/avatar";
+    if($file){
+      // ---------------判断图片格式---------------
+      // 获取上传图片格式
+      $type = $file->getInfo()["type"];
+      $types = ["image/x-icon","image/png","image/jpeg"];
+      if(!in_array($type, $types)){
+        $this->error("只支持jpg,icon,png文件格式!", "Index/person");
+      }
+      // -----------限制图片上传大小，限定100k之内-----------
+      // 获取图片大小
+      $size = $file->getInfo()["size"];
+      if($size > 1024 * 100){
+        $this->error("上传图片的大小不能超过100k", "Index/person");
+      }
+      // 将文件移动到定义的目录下面
+      $info = $file->move($path);
+      // 获取移动后头像的名称
+      $avatarName = $info->getSaveName();
+      // 将获取到的头像名称存到数据库
+      $re = db("user")->where("unick",session("unick"))->setField("uimg",$avatarName);
+      // 判断是否成功存进数据库
+      if ($re == 1) {
+        // ---------------------删除旧头像---------------------
+        $oldPath = ROOT_PATH."public\static\upload\avatar\\".session("uimg");
+        $defaultPath = ROOT_PATH."public\static\upload\avatar\\"."default.png";
+        if($oldPath !== $defaultPath){
+          unlink($oldPath);
+        }
+        session("uimg",$avatarName);
+        $this->success("上传成功", "Index/person");
+      } else {
+        $this->error("上传失败！", "Index/person");
+      }
+    }else{
+      $this->error("请选择上传图片！", "Index/person");
+    }
   }
-  // 个人页
+  // 1711140136-个人页
   public function person()
   {
     $this->check();
     return view();
   }
-  // 注销用户
+  // 1711140136-注销用户
   public function logout()
   {
     $this->check();
