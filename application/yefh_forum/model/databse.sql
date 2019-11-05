@@ -3,7 +3,6 @@ create database yefh_forum;
 create database yefh_forum_admin;
 
 
-
 -- 1711140136-创建表
 /* 
 存储用户信息表
@@ -18,19 +17,10 @@ create table yefh_user
   unick varchar(10) primary key not null,
   upa char(32) not null,
   uemail varchar(35) not null,
-  utel varchar(15) not null
+  utel varchar(15) not null,
+  uimg varchar(100) not null  
 );
--- 添加uimg字段，存储用户头像路径
-ALTER TABLE yefh_user ADD uimg VARCHAR(100) not null;
 
--- 头像保存的位置：public/static/upload/avatar/
-
-
--- 1711140136测试数据
-insert into yefh_user
-  (unick,upa,uemail,utel)
-values
-  ('tom', md5('123456'), '508766975@qq.com', '17876383171');
 
 /*
 创建存储板块信息
@@ -82,7 +72,7 @@ mid 原贴编号
 use yefh_forum;
 create table yefh_res
 (
-  rid int primary key not null,
+  rid int primary key auto_increment not null,
   rcontent text not null,
   unick varchar(10) not null,
   rcreateat int not null,
@@ -92,6 +82,25 @@ create table yefh_res
 );
 
 
+-- 1711140136-查看用户
+SELECT DISTINCT
+  CONCAT( 'User: ''', USER, '''@''', HOST, ''';' ) AS QUERY
+FROM
+  mysql.USER;
+
+-- 插数据进板块
+insert into yefh_section
+    (sname,sremark)
+    values
+    ('幽默','幽默'),
+    ('儿童','儿童'),
+    ('爱情','爱情'),
+    ('职场','职场'),
+    ('励志','励志'),
+    ('哲理','哲理'),
+    ('校园','校园'),
+    ('人生','人生')
+    
 -- 1711140136读写账号(老版本写法)
 -- grant select
 --   on yefh_forum.*
@@ -131,19 +140,3 @@ ALTER USER 'admin_change'@'localhost' IDENTIFIED WITH mysql_native_password BY '
 DROP USER 'read'@'localhost';
 DROP USER 'change'@'localhost';
 DROP USER 'admin_change'@'localhost';
-
-
--- 1711140136-查看用户
-SELECT DISTINCT
-  CONCAT( 'User: ''', USER, '''@''', HOST, ''';' ) AS QUERY
-FROM
-  mysql.USER;
-
--- 插数据进板块
-insert into yefh_section
-    (sname,sremark)
-    values
-    ('MUI专区','MUI专区'),
-    ('科技专区','科技专区'),
-    ('刷机教程','刷机教程')
-

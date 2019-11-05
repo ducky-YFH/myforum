@@ -6,12 +6,20 @@ use think\Controller;
 
 class User extends Controller
 {
+    // -----------------1711140136-查询模块-----------------
+  public function showSec()
+  {
+    $re = db("section")
+      ->select();
+    // 渲染、传递参数
+    return $re;
+  }
   // 1711140136-登陆页面
   public function login()
   {
     return view();
   }
-  // 1711140136-执行登陆验证
+  // -----------------1711140136-执行登陆验证-----------------
   public function doLogin()
   {
     // 获取表单的用户名和密码
@@ -31,12 +39,13 @@ class User extends Controller
       $this->error('登录失败', 'User/login');
     }
   }
-  // 1711140136-注册页面
+  // --------------------1711140136-注册页面--------------------
   public function register()
   {
-    return view();
+    $sec = $this -> showSec();
+    return view("", ["sec" => $sec]);
   }
-  // 1711140136-执行注册处理
+  // -------------------1711140136-执行注册处理-------------------
   public function doRegister()
   {
     config("database.username", "change");
@@ -65,9 +74,10 @@ class User extends Controller
       $this->success("注册失败,该名称已被注册");
     }
   }
-  // 1711140136-联系我们
+  // ------------------1711140136-联系我们------------------
   public function contact()
   {
-    return view();
+    $sec = $this -> showSec();
+    return view("", ["sec" => $sec]);
   }
 }

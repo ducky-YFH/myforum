@@ -16,16 +16,47 @@
   <div id="container">
     <!-- 顶部导航条 -->
     <header>
+      <ul>
+        <li class="logo">DHS</li>
+        <li><a href="{:url('Index/index')}">首页</a></li>
+        <li class="forum-item">
+          <a href="{:url('Index/view')}">论坛</a>
+          <ul class="forum-menu">
+            {volist name="sec" id="secrow"}
+            <li><a href="{:url('index/view',['sid' => $secrow.sid])}">{$secrow.sname}</a></li>
+            {/volist}
+          </ul>
+        </li>
+        <li><a href="{:url('Index/post')}">发帖</a></li>
+        <li><a href="{:url('User/contact')}">联系</a></li>
+        <li><a href="{:url('Index/person')}">信息</a></li>
+      </ul>
+      {if condition="$Think.session.unick"}
+      <div class="avatar-box">
+        <span class="avatar">
+          <img src="__STATIC__/upload/avatar/{$Think.session.uimg}" alt="">
+        </span>
+        <span class="username">{$Think.session.unick}</span>
+      </div>
+      {/if}
+      <div class="login-reg">
+        {if condition="$Think.session.unick != ''"}
+        <a href="{:url('Index/logout')}">注销</a>
+        {else}
+        <a href="{:url('User/login')}">登录</a>
+        {/if}
+        <a class="reg" href="{:url('User/register')}">注册</a>
+      </div>
     </header>
-    <!-- 主体内容 -->
+    <!-- ==================主体内容================== -->
     <section>
       <div id="section-container">
         <div id="content-main">
-          <h1>全民投票 | 最喜欢MIUI11哪个功能？</h1>
+          <h1>{$mes.mtitle}</h1>
           <div class="browse-info">
             <div>
-              <span class="author">大黑帅</span>
-              <span class="time">2019-9-25&nbsp;&nbsp;</span>
+              <span class="author">{$mes.unick}&nbsp;&nbsp;</span>
+              <span class="time">{$mes.mcreateat|date="Y-m-d h:m:s",###}</span>
             </div>
             <div>
               <span class="author">评论:2000</span>
@@ -33,55 +64,27 @@
             </div>
           </div>
           <div class="main-text">
-            <p>MIUI 11 带来成熟完善的 MIUI 现代设计，首家动态字体系统与 MIUI 动态自然音效体系，荣获两项 2019 红点奖。还有万象息屏功能，给你带来耳目一新的视觉冲击。让我们一起来看看此次MIUI 11
-              更新了什么？</p>
-            <h1>一、成熟的现代设计语言</h1>
-            <p>MIUI11带来成熟的现代设计语言，去除冗余信息，专为触碰设计的控件，克制用色突出重点，达到直接、高效的人机沟通。</p>
-            <h1>二、小米兰亭Pro</h1>
-            <p>
-              全新的小米兰亭Pro，中文字形更瘦更优美，全新西文设计，同时调整了字体基线位置，混排阅读更加舒适。MIUI11推出动态字体系统：①无级调节字体粗细，每个人都能找到自己舒适的阅读字重。②根据内容给予不同程度加粗。③交互细节得以上升到全新层面。
-            </p>
-            <img src="http://cdn.fds.api.xiaomi.com/b2c-bbs/cn/attachment/d709a569a24bff91bccf82856df52450.jpg" alt="">
+            {$mes.mcontent}
           </div>
         </div>
-        <div id="content-comment">
-          <div class="header">
-            <img class="avatar" src="__STATIC__/upload/avatar/default.jpg" alt="">
-            <span class="name">大黑帅</span>
-            <span class="time">发表于:09-25&nbsp;&nbsp;&nbsp;13:51:32</span>
+        <!-- ==================评论区域================== -->
+        {volist name="res" id="item"}
+          <div id="content-comment">
+            <div class="header">
+              <img class="avatar" src="__STATIC__\upload\avatar\{$item.uimg}" alt="">
+              <span class="name">{$item.unick}</span>
+              <span class="time">发表于：{$item.rcreateat|date="Y-m-d h:m:s",###}</span>
+            </div>
+            <div class="center">
+              <p>{$item.rcontent}</p>
+            </div>
           </div>
-          <div class="center">
-            <p>在体验MIUI11 小米9上滑呼出多任务和上滑内容中心能做下小调整吗，很多次本来是呼出多任务却入内容中心，主要是小米9比较修长每次到最低部呼出多任务总感觉手机拿不稳失重心给人感受不踏实。</p>
-          </div>
-          <div class="footer"></div>
-        </div>
-        <div id="content-comment">
-          <div class="header">
-            <img class="avatar" src="__STATIC__/upload/avatar/default.jpg" alt="">
-            <span class="name">大黑帅</span>
-            <span class="time">发表于:09-25&nbsp;&nbsp;&nbsp;13:51:32</span>
-          </div>
-          <div class="center">
-            <p>在体验MIUI11 小米9上滑呼出多任务和上滑内容中心能做下小调整吗，很多次本来是呼出多任务却入内容中心，主要是小米9比较修长每次到最低部呼出多任务总感觉手机拿不稳失重心给人感受不踏实。</p>
-          </div>
-          <div class="footer"></div>
-        </div>
-        <div id="content-comment">
-          <div class="header">
-            <img class="avatar" src="__STATIC__/upload/avatar/default.jpg" alt="">
-            <span class="name">大黑帅</span>
-            <span class="time">发表于:09-25&nbsp;&nbsp;&nbsp;13:51:32</span>
-          </div>
-          <div class="center">
-            <p>在体验MIUI11 小米9上滑呼出多任务和上滑内容中心能做下小调整吗，很多次本来是呼出多任务却入内容中心，主要是小米9比较修长每次到最低部呼出多任务总感觉手机拿不稳失重心给人感受不踏实。</p>
-          </div>
-          <div class="footer"></div>
-        </div>
+        {/volist}
         <div id="content-publish">
-          <img class="avatar" src="__STATIC__/upload/avatar/default.jpg" alt="">
-          <form action="">
+          <img class="avatar" src="__STATIC__/upload/avatar/{$Think.session.uimg}" alt="">
+          <form action="{:url('doRes', ['mid' => input('mid')])}" method="post">
             <div class="layui-form-item layui-form-text">
-              <textarea placeholder="请输入内容" class="layui-textarea"></textarea>
+              <textarea placeholder="请输入内容" class="layui-textarea" name="rcontent"></textarea>
               <button class="layui-btn" lay-submit style="background-color:#822fff;">立即提交</button>
             </div>
           </form>
@@ -132,9 +135,9 @@
       theme: '#6a48ff'
     });
   });
-  $(document).ready(function () {
-    $("header").load("../Common/header.html");
-  });
+  // $(document).ready(function () {
+  //   $("header").load("../Common/header.html");
+  // });
 </script>
 
 </html>

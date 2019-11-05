@@ -17,13 +17,50 @@
   <div id="container">
     <!-- 顶部导航条 -->
     <header>
+      <ul>
+        <li class="logo">DHS</li>
+        <li><a href="{:url('Index/index')}">首页</a></li>
+        <li class="forum-item">
+          <a href="{:url('Index/view')}">论坛</a>
+          <ul class="forum-menu">
+            {volist name="sec" id="secrow"}
+            <li><a href="{:url('index/view',['sid' => $secrow.sid])}">{$secrow.sname}</a></li>
+            {/volist}
+          </ul>
+        </li>
+        <li><a href="{:url('Index/post')}">发帖</a></li>
+        <li><a href="{:url('User/contact')}">联系</a></li>
+        <li><a href="{:url('Index/person')}">信息</a></li>
+      </ul>
+      {if condition="$Think.session.unick"}
+      <div class="avatar-box">
+        <span class="avatar">
+          <img src="__STATIC__/upload/avatar/{$Think.session.uimg}" alt="">
+        </span>
+        <span class="username">{$Think.session.unick}</span>
+      </div>
+      {/if}
+      <div class="login-reg">
+        {if condition="$Think.session.unick != ''"}
+        <a href="{:url('Index/logout')}">注销</a>
+        {else}
+        <a href="{:url('User/login')}">登录</a>
+        {/if}
+        <a class="reg" href="{:url('User/register')}">注册</a>
+      </div>
     </header>
     <!-- 主体内容 -->
-    <form action="{:url('doPost',['sid'=>1])}">
+    <form action="{:url('doPost')}" method="post">
       <section>
         <div class="post-title">
           <label for="title-input">标题</label>
           <input type="text" id="title-input" name="mtitle">
+          <label for="post-type">帖子类别</label>
+          <select id="post-type" name="sid">
+            {volist name="sec" id="secrow"}
+            <option value="{$secrow.sid}">{$secrow.sname}</option>
+            {/volist}
+          </select>
         </div>
         <input type="hidden" name="mcontent" id="editor_txt">
         <div id="toolbar" class="toolbar">
@@ -75,7 +112,7 @@
   var editor = new E('#toolbar', '#editor-content')  // 两个参数也可以传入 elem 对象，class 选择器
   editor.create()
   $(function () {
-    $("header").load("../Common/header.html");
+    // 获取到文本内容，然后将它覆给一个新的表单元素里面
     $('#submitBtn').on('click', function () {
       var editor_txt = editor.txt.html();
       $("#editor_txt").val(editor_txt);
