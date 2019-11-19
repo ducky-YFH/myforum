@@ -55,11 +55,15 @@
         <div class="post-title">
           <label for="title-input">标题</label>
           <input type="text" id="title-input" name="mtitle">
-          <label for="post-type">帖子类别</label>
+          <label for="post-type">帖子类型</label>
           <select id="post-type" name="sid">
-            {volist name="sec" id="secrow"}
-            <option value="{$secrow.sid}">{$secrow.sname}</option>
-            {/volist}
+            {if condition="input('sid') != ''"}
+              <option value= "<?php echo input('sid') ?>" ><?php echo input('nowSec') ?></option>
+            {else}
+              {volist name="sec" id="secrow"}
+              <option value="{$secrow.sid}">{$secrow.sname}</option>
+              {/volist}
+            {/if}
           </select>
         </div>
         <input type="hidden" name="mcontent" id="editor_txt">

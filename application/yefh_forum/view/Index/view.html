@@ -51,7 +51,7 @@
     <section>
       <div class="postTitle">
         <h1>{$nowSec}</h1>
-        <a class="postBtn" href="{:url('Index/post')}">去发布帖子</a>
+        <a class="postBtn" href="{:url('Index/post',['sid' => input('sid'), 'nowSec' => $nowSec])}">去发布帖子</a>
       </div>
       {volist name="mes" id="mesrow"}
       <div class="cart-box">
@@ -65,15 +65,10 @@
           <span class="post-author">{$mesrow.unick}</span>
           <span class="post-time">{$mesrow.mcreateat|date="Y-m-d h:m:s",###}</span>
         </div>
-        <div class="post-read">
-          <span>浏览：<span class="post-view">2000</span></span>
-          <span>评论：<span class="post-comment">1000</span></span>
-        </div>
       </div>
       {/volist}
     </section>
-    <div id="pageContainer"></div>
-
+    <span id="pageContainer">{$page}</span>
     <footer>
       <ul>
         <li class="title">关于我们</li>
@@ -105,22 +100,5 @@
     </footer>
   </div>
 </body>
-<script src="__STATIC__/common/jquery/jquery.js"></script>
-<script src="__STATIC__/common/layui/layui.js"></script>
-<script>
-  $(function () {
-    // $("header").load("../Common/header.html");
-    // -----------------laypage提供的分页-----------------
-    layui.use('laypage', function () {
-      var laypage = layui.laypage;
-      //执行一个laypage实例
-      laypage.render({
-        elem: 'pageContainer', //注意，这里的是 ID，不用加 # 号
-        count: 30, //数据总数，从服务端得到
-        theme: '#6a48ff'
-      });
-    });
-  })
-</script>
 
 </html>

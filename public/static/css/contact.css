@@ -1,0 +1,101 @@
+/* --------------------导航条-------------------- */
+@import url(./header.css);
+
+html,
+body {
+  /* min-width: 900px; */
+  height: 100%;
+}
+
+#container {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 200px;
+  box-sizing: border-box;
+}
+
+
+/* --------------------中间主体-------------------- */
+section {
+  width: 100%;
+  padding: 50px 5%;
+  box-sizing: border-box;
+}
+
+section .cart-box {
+  margin: 10px 0;
+  width: 100%;
+  min-height: 80px;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #e8eaed;
+  border-bottom: 1px solid #dae6ec;
+}
+
+.cart-box .title {
+  font-size: 18px;
+  color: #666666;
+  margin-bottom: 10px;
+}
+
+@media screen and (max-width: 1260px) {
+
+}
+
+@media screen and (max-width: 639px) {
+  section {
+    padding: 10px 2%;
+  }
+
+  footer ul {
+    display: none;
+  }
+  .reg{
+    display: none;
+  }
+  .logo{
+    display: none;
+  }
+}
+
+footer {
+  /* position: absolute;
+  bottom: 0; */
+  width: 100%;
+  background-color: #2b2b2b;
+  height: 200px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20%;
+  box-sizing: border-box;
+}
+
+footer ul {
+  border-left: 0.1px solid #818181;
+  padding-left: 15px;
+}
+
+footer ul li {
+  line-height: 30px;
+}
+
+footer ul li a {
+  color: #818181;
+}
+
+footer .title {
+  font-size: 20px;
+  color: #818181;
+}
+
+footer .QR-code {
+  width: 86px;
+  height: 86px;
+}

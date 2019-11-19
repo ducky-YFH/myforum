@@ -52,15 +52,17 @@
     <section>
       <div id="section-container">
         <div id="content-main">
+          <!-- 头像 -->
+          <span class="forum-avatar">
+            <img src="__STATIC__/upload/avatar/{$mes.uimg}" alt="">
+          </span>
           <h1>{$mes.mtitle}</h1>
+          <span class="timer"></span>
           <div class="browse-info">
             <div>
               <span class="author">{$mes.unick}&nbsp;&nbsp;</span>
-              <span class="time">{$mes.mcreateat|date="Y-m-d h:m:s",###}</span>
-            </div>
-            <div>
-              <span class="author">评论:2000</span>
-              <span class="author">浏览:8000</span>
+              <span class="time">{$mes.mcreateat|date="Y-m-d h:m:s",###}</span>&nbsp;&nbsp;&nbsp;
+              帖子分类：<span style="color: red">{$mes.sname}</span>
             </div>
           </div>
           <div class="main-text">
@@ -71,7 +73,7 @@
         {volist name="res" id="item"}
           <div id="content-comment">
             <div class="header">
-              <img class="avatar" src="__STATIC__\upload\avatar\{$item.uimg}" alt="">
+              <img class="avatar" src="__STATIC__/upload/avatar/{$item.uimg}" alt="">
               <span class="name">{$item.unick}</span>
               <span class="time">发表于：{$item.rcreateat|date="Y-m-d h:m:s",###}</span>
             </div>
@@ -80,6 +82,7 @@
             </div>
           </div>
         {/volist}
+        {$page}
         <div id="content-publish">
           <img class="avatar" src="__STATIC__/upload/avatar/{$Think.session.uimg}" alt="">
           <form action="{:url('doRes', ['mid' => input('mid')])}" method="post">
@@ -91,7 +94,6 @@
         </div>
       </div>
     </section>
-    <div id="pageContainer"></div>
     <footer>
       <ul>
         <li class="title">关于我们</li>
@@ -123,21 +125,5 @@
     </footer>
   </div>
 </body>
-<script src="__STATIC__/common/jquery/jquery.js"></script>
-<script src="__STATIC__/common/layui/layui.js"></script>
-<script>
-  layui.use('laypage', function () {
-    var laypage = layui.laypage;
-    //执行一个laypage实例
-    laypage.render({
-      elem: 'pageContainer', //注意，这里的是 ID，不用加 # 号
-      count: 30, //数据总数，从服务端得到
-      theme: '#6a48ff'
-    });
-  });
-  // $(document).ready(function () {
-  //   $("header").load("../Common/header.html");
-  // });
-</script>
 
 </html>

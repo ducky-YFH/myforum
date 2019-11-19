@@ -28,30 +28,39 @@ class Index extends Controller
     return view("", ["sec" => $sec]);
   }
   // ----------------------1711140136-帖子列表页----------------------
-  public function view()
+  public function view($sid = 0)
   {
     $sec = $this->showSec();
-    if (input("sid")) {
-          $mes = db()
-          ->view("mes","mid,mtitle,mcontent,unick,mcreateat,sid")
-          ->view("user", "uimg", "mes.unick=user.unick")
-          ->where("sid", input("sid"))
-          ->select();
-    } else {
+    //  如果没有详细的sid就查询所有帖子
+    if($sid === 0){
       $mes = db()
           ->view("mes","mid,mtitle,mcontent,unick,mcreateat,sid")
           ->view("user", "uimg", "mes.unick=user.unick")
-          ->select();
+          ->order('mcreateat desc')
+          ->paginate(6);
+    }else{
+      // 如果传入的sid不存在就显示不合法
+      $flag = db('section')->where('sid',input('sid'))->select();
+      if(empty($flag)){
+        $this->error("参数有误！",'view');
+      }
+      $mes = db()
+          ->view("mes","mid,mtitle,mcontent,unick,mcreateat,sid")
+          ->view("user", "uimg", "mes.unick=user.unick")
+          ->where("sid", $sid)
+          ->order('mcreateat desc')
+          ->paginate(6);
     }
+    $page = $mes -> render();
     foreach ($sec as $key => $value) {
-      if ($value["sid"] == input("sid")) {
+      if ($value["sid"] == $sid) {
         $nowSec = $value["sname"];
         break;
       } else {
         $nowSec = "所有帖子";
       }
     }
-    return view("", ["mes" => $mes, "sec" => $sec, "nowSec" => $nowSec]);
+    return view("", ["mes" => $mes, "sec" => $sec, "nowSec" => $nowSec, "page" => $page]);
   }
   // ------------------1711140136-帖子发布页------------------
   public function post()
@@ -66,6 +75,9 @@ class Index extends Controller
     $this->check();
     config("database.username", "change");
     config("database.password", "66666666");
+    if(empty(input("sid"))){
+      $this->error("请选择一个帖子类型");
+    }
     $mes = [
       'mtitle' => input("mtitle"),
       'mcontent' => input("mcontent"),
@@ -77,30 +89,36 @@ class Index extends Controller
     $re = db("mes")
       ->insert($mes);
     if ($re == 1) {
-      $this->success("发帖成功！", "view");
+      $this->success("发帖成功！", url('view',['sid' => input('sid')]));
     } else {
       $this->error("发帖失败！");
     }
   }
   // ------------------1711140136-帖子详细页------------------
-  public function detail()
+  public function detail($mid = 0)
   {
     // 查询模块
     $sec = $this->showSec();
-    // 查询这个帖子所有内容，根据mid（帖子编号）
+    // 判断数据库是否存mid
+    if($mid === 0 || empty(db('mes')->where('mid',input('mid'))->select())){
+      $this->error("参数错误！,将自动跳转到帖子列表页", 'view');
+    }
+    // 查询和这个帖子有关的评论，根据mid（帖子编号）
     $mes = db()
       ->view("mes", "mtitle,mcontent,unick,mcreateat")
       ->view("user", "uimg", "mes.unick=user.unick")
-      ->where("mid", input("mid"))
+      ->view("section","sname","section.sid=mes.sid")
+      ->where("mid", $mid)
       ->find();
     // 查询和这个帖子有关的评论，根据mid（帖子编号）
     $res = db()
       ->view("res", "rcontent,unick,rcreateat")
       ->view("user", "uimg", "res.unick=user.unick")
-      ->where("mid", input("mid"))
-      ->select();
-    // dump($res);
-    return view("", ["sec" => $sec, "mes" => $mes, "res" => $res]);
+      ->where("mid", $mid)
+      ->paginate(5);
+      // ->select();
+    $page = $res->render();
+    return view("", ["sec" => $sec, "mes" => $mes, "res" => $res, "page" => $page]);
   }
   // -------------------1711140136-回复帖子-------------------
   public function doRes()
@@ -203,3 +221,14 @@ class Index extends Controller
     $this->success('注销成功！', 'User/login');
   }
 }
+
+// ++++++++++++++++++view++++++++++++++++++
+// if (input("sid")) {
+      // ->select();
+// } 
+// else {
+//   $mes = db()
+//       ->view("mes","mid,mtitle,mcontent,unick,mcreateat,sid")
+//       ->view("user", "uimg", "mes.unick=user.unick")
+//       ->paginate(6);
+// }

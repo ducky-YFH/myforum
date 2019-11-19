@@ -1,0 +1,223 @@
+/* --------------------导航条-------------------- */
+@import url(./header.css);
+
+
+html,
+body {
+  /* min-width: 900px; */
+  height: 100%;
+}
+
+#container {
+  position: relative;
+  width: 100%;
+  min-height: 100%;
+  padding-bottom: 200px;
+  box-sizing: border-box;
+  background-color: #f3f3f3;
+}
+
+/* ------------------------中间主体------------------------ */
+section {
+  width: 100%;
+  padding: 50px 400px;
+  box-sizing: border-box;
+}
+.post-title{
+  position: relative;
+  margin-bottom: 15px;
+  /* background-image: linear-gradient(160deg, #00b3ff 20%, #b100ff 80%); */
+  background: #999999;
+  height: 30px;
+  padding: 5px;
+  transition: 0.6s;
+}
+.post-title:hover{
+  transform: translate(-3px, -3px);
+  box-shadow: 3px 5px 8px rgba(0, 0, 0, 0.6);
+}
+.post-title label {
+  vertical-align: top;
+  font-size: 18px;
+  line-height: 30px;
+  color: #fff;
+  font-weight: bold;
+  vertical-align: top;
+}
+
+.post-title > input {
+  line-height: 29px;
+  outline: none;
+  border: 1px solid #999999;
+  border-radius: 6px;
+  font-size: 16px;
+}
+
+#post-type{
+  line-height: 29px;
+  border-radius: 6px;
+  appearance:none;
+  outline: none;
+  -moz-appearance:none;
+  -webkit-appearance:none;
+  -ms-appearance:none;
+  width:150px;
+  background:#fff;
+  color:#666;
+  text-indent: 10px;
+  vertical-align: top;
+}
+.toolbar {
+  background-color: #fff;
+  flex-wrap: wrap;
+}
+
+.editor-content {
+  background-color: #fff;
+  border-top: 1px solid #dbdbdb;
+  min-height: 300px;
+}
+
+/* -----------------------中间主体------------------------ */
+
+/*  分页 */
+#pageContainer {
+  text-align: center;
+}
+
+/* -------------------------尾部------------------------- */
+footer {
+  width: 100%;
+  background-color: #2b2b2b;
+  height: 200px;
+}
+
+footer {
+  position: absolute;
+  bottom: 0;
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 20%;
+  box-sizing: border-box;
+}
+
+footer ul {
+  border-left: 0.1px solid #818181;
+  padding-left: 15px;
+}
+
+footer ul li {
+  line-height: 30px;
+}
+
+footer ul li a {
+  color: #818181;
+}
+
+footer .title {
+  font-size: 20px;
+  color: #818181;
+}
+
+footer .QR-code {
+  width: 86px;
+  height: 86px;
+}
+
+/*------------------------尾部------------------------*/
+
+/* ---------------------媒体查询--------------------- */
+@media screen and (max-width: 1638px) {
+
+  section {
+    width: 100%;
+    padding: 50px 20%;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+
+  section {
+    width: 100%;
+    padding: 50px 10%;
+    box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 639px) {
+
+  header .login-reg a {
+    margin-right: 5px;
+    font-size: 10px;
+  }
+
+  section {
+    padding: 10px 2%;
+  }
+
+  footer ul {
+    display: none;
+  }
+
+  .reg {
+    display: none;
+  }
+
+  .logo {
+    display: none;
+  }
+}
+
+/* ---------------------媒体查询--------------------- */
+/* editor提交后对内容进行布局的样式 */
+/* table 样式 */
+table {
+  border-top: 1px solid #ccc;
+  border-left: 1px solid #ccc;
+}
+
+table td,
+table th {
+  border-bottom: 1px solid #ccc;
+  border-right: 1px solid #ccc;
+  padding: 3px 5px;
+}
+
+table th {
+  border-bottom: 2px solid #ccc;
+  text-align: center;
+}
+
+/* blockquote 样式 */
+blockquote {
+  display: block;
+  border-left: 8px solid #d0e5f2;
+  padding: 5px 10px;
+  margin: 10px 0;
+  line-height: 1.4;
+  font-size: 100%;
+  background-color: #f1f1f1;
+}
+
+/* code 样式 */
+code {
+  display: inline-block;
+  *display: inline;
+  *zoom: 1;
+  background-color: #f1f1f1;
+  border-radius: 3px;
+  padding: 3px 5px;
+  margin: 0 3px;
+}
+
+pre code {
+  display: block;
+}
+
+/* ul ol 样式 */
+ul,
+ol {
+  margin: 10px 0 10px 20px;
+}

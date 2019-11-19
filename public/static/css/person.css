@@ -1,0 +1,193 @@
+/* --------------------导航条-------------------- */
+
+@import url(./header.css);
+html, body {
+    /* min-width: 900px; */
+    height: 100%;
+}
+
+#container {
+    position: relative;
+    width: 100%;
+    min-height: 100%;
+    padding-bottom: 200px;
+    box-sizing: border-box;
+    background-color: #f3f3f3;
+}
+
+
+/* ------------------------中间主体------------------------ */
+
+section {
+    width: 100%;
+    padding: 50px 25%;
+    box-sizing: border-box;
+    border: 1px solid #e6e6e6;
+    text-align: center;
+}
+
+.person-avatar {
+    width: 100%;
+}
+
+.person-avatar form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 15px;
+}
+
+.person-avatar form .filebox {
+    border: 2px solid #a011ff;
+    overflow: hidden;
+    width: 100px;
+    box-shadow: 2px 2px 5px #a011ff;
+    position: relative;
+}
+
+.person-avatar form .filebox a{
+  padding: 2px;
+  color: #674bff;
+  position: absolute;
+  left: 10px;
+  font-weight: bold;
+}
+
+.person-avatar form .filebox input {
+    opacity: 0;
+    margin-right: 10px;
+    width: 204px;
+    border: none;
+}
+
+.person-avatar form button {
+    background: #a011ff;
+    padding: 5px;
+    color: #fff;
+    border: none;
+    outline: none;
+    box-shadow: 2px 2px 5px #a011ff;
+}
+
+.person-avatar .avatar img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+}
+
+#avatarBtn {
+    margin-left: 50px;
+    background-color: #5e54ff;
+}
+
+
+.layui-form{
+  margin-left: 10px;
+}
+.layui-form-label{
+  font-weight: 700;
+  color: #a011ff;
+}
+#change-pa {
+    margin-top: 30px;
+    width: 100%;
+    text-align: center;
+    display: flex;
+    justify-content: center;
+}
+
+#change-pa .submitbox {
+    width: 100%;
+    /*margin-left: 30px;*/
+}
+
+#change-pa .submitbox button {
+    /* width: 50%; */
+}
+
+
+/* -----------------------中间主体------------------------ */
+
+
+/* -------------------------尾部------------------------- */
+
+footer {
+    /* position: absolute;
+  bottom: 0; */
+    width: 100%;
+    background-color: #2b2b2b;
+    height: 200px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 20%;
+    box-sizing: border-box;
+}
+
+footer ul {
+    border-left: 0.1px solid #818181;
+    padding-left: 15px;
+}
+
+footer ul li {
+    line-height: 30px;
+}
+
+footer ul li a {
+    color: #818181;
+}
+
+footer .title {
+    font-size: 20px;
+    color: #818181;
+}
+
+footer .QR-code {
+    width: 86px;
+    height: 86px;
+}
+
+
+/*------------------------尾部------------------------*/
+
+
+/* ---------------------媒体查询--------------------- */
+
+@media screen and (max-width: 1638px) {
+    section {
+        width: 100%;
+        padding: 50px 20%;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 1260px) {
+    section {
+        width: 100%;
+        padding: 50px 10%;
+        box-sizing: border-box;
+    }
+}
+
+@media screen and (max-width: 639px) {
+    section {
+        padding: 10px 2%;
+    }
+    .layui-laypage span {
+        padding: 0 10px;
+    }
+    footer ul {
+        display: none;
+    }
+    .reg {
+        display: none;
+    }
+    .logo {
+        display: none;
+    }
+}
