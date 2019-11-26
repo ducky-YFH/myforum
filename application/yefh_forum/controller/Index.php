@@ -18,7 +18,7 @@ class Index extends Controller
   public function check()
   {
     if (!session('?unick')) {
-      $this->error('你尚未登录', 'User/login');
+      $this->error('你尚未登录', 'yefh_forum/user/login');
     }
   }
   // ----------------------1711140136-论坛门户页----------------------
@@ -42,7 +42,7 @@ class Index extends Controller
       // 如果传入的sid不存在就显示不合法
       $flag = db('section')->where('sid',input('sid'))->select();
       if(empty($flag)){
-        $this->error("参数有误！",'view');
+        $this->error("参数有误！","yefh_forum/index/view");
       }
       $mes = db()
           ->view("mes","mid,mtitle,mcontent,unick,mcreateat,sid")
@@ -89,7 +89,7 @@ class Index extends Controller
     $re = db("mes")
       ->insert($mes);
     if ($re == 1) {
-      $this->success("发帖成功！", url('view',['sid' => input('sid')]));
+      $this->success("发帖成功！", url('yefh_forum/index/view',['sid' => input('sid')]));
     } else {
       $this->error("发帖失败！");
     }
@@ -175,13 +175,13 @@ class Index extends Controller
       $type = $file->getInfo()["type"];
       $types = ["image/x-icon", "image/png", "image/jpeg"];
       if (!in_array($type, $types)) {
-        $this->error("只支持jpg,icon,png文件格式!", "Index/person");
+        $this->error("只支持jpg,icon,png文件格式!", "yefh_forum/index/person");
       }
       // -----------限制图片上传大小，限定100k之内-----------
       // 获取图片大小
       $size = $file->getInfo()["size"];
       if ($size > 1024 * 100) {
-        $this->error("上传图片的大小不能超过100k", "Index/person");
+        $this->error("上传图片的大小不能超过100k", "yefh_forum/index/person");
       }
       // 将文件移动到定义的目录下面
       $info = $file->move($path);
@@ -198,12 +198,12 @@ class Index extends Controller
           unlink($oldPath);
         }
         session("uimg", $avatarName);
-        $this->success("上传成功", "Index/person");
+        $this->success("上传成功", "yefh_forum/index/person");
       } else {
-        $this->error("上传失败！", "Index/person");
+        $this->error("上传失败！", "yefh_forum/index/person");
       }
     } else {
-      $this->error("请选择上传图片！", "Index/person");
+      $this->error("请选择上传图片！", "yefh_forum/index/person");
     }
   }
   // --------------------1711140136-个人页--------------------
@@ -218,7 +218,12 @@ class Index extends Controller
   {
     $this->check();
     session('unick', null);
-    $this->success('注销成功！', 'User/login');
+    $this->success('注销成功！', 'yefh_forum/user/login');
+  }
+  
+  public function missError()
+  {
+    $this->error("你访问的页面不存在！", "yefh_forum/index/index");
   }
 }
 

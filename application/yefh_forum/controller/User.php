@@ -34,9 +34,9 @@ class User extends Controller
     if($re){
       session('unick', $re['unick']);
       session('uimg', $re['uimg']);
-      $this->success('登录成功', 'Index/index');
+      $this->success('登录成功', 'yefh_forum/index/index');
     }else{
-      $this->error('登录失败', 'User/login');
+      $this->error('登录失败', 'yefh_forum/user/login');
     }
   }
   // --------------------1711140136-注册页面--------------------
@@ -66,9 +66,9 @@ class User extends Controller
       ];
       $re = db("user")->insert($info);
       if($re == 1){
-        $this->success("注册".$unick."成功", "User/login");
+        $this->success("注册".$unick."成功", "yefh_forum/user/login");
       }else{
-        $this->success('注册失败！', 'User/register');
+        $this->success('注册失败！', 'yefh_forum/user/register');
       }
     }else{
       $this->success("注册失败,该名称已被注册");
