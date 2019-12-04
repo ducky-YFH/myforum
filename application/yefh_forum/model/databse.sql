@@ -130,10 +130,14 @@ ALTER USER 'change'@'localhost' IDENTIFIED WITH mysql_native_password BY '666666
 --   to "admin_change"@"localhost"
 --   identified by "12345678";
 -- 新版本写法
-CREATE USER 'admin_change'@'localhost' IDENTIFIED BY '12345678';
-GRANT INSERT,UPDATE,SELECT ON yefh_forum.* TO 'admin_change'@'localhost';
-ALTER USER 'admin_change'@'localhost' IDENTIFIED BY '12345678' PASSWORD EXPIRE NEVER;   #修改加密规则
-ALTER USER 'admin_change'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678'; #更新一下用户的密码
+-- CREATE USER 'admin_change'@'localhost' IDENTIFIED BY '12345678';
+-- GRANT INSERT,UPDATE,SELECT ON yefh_forum.* TO 'admin_change'@'localhost';
+-- ALTER USER 'admin_change'@'localhost' IDENTIFIED BY '12345678' PASSWORD EXPIRE NEVER;   #修改加密规则
+-- ALTER USER 'admin_change'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678'; #更新一下用户的密码
+CREATE USER 'admin'@'localhost' IDENTIFIED BY '99999999';
+GRANT INSERT,UPDATE,SELECT ON yefh_forum.* TO 'admin'@'localhost';
+ALTER USER 'admin'@'localhost' IDENTIFIED BY '99999999' PASSWORD EXPIRE NEVER;   #修改加密规则
+ALTER USER 'admin'@'localhost' IDENTIFIED WITH mysql_native_password BY '99999999'; #更新一下用户的密码
 
 
 -- 1711140136-删除用户

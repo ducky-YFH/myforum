@@ -41,7 +41,7 @@
       {/if}
       <div class="login-reg">
         {if condition="$Think.session.unick != ''"}
-        <a href="{:url('Index/logout')}">注销</a>
+        <a href="{:url('yefh_forum/index/logout')}">注销</a>
         {else}
         <a href="{:url('yefh_forum/user/login')}">登录</a>
         {/if}
@@ -85,7 +85,7 @@
         {$page}
         <div id="content-publish">
           <img class="avatar" src="__STATIC__/upload/avatar/{$Think.session.uimg}" alt="">
-          <form action="{:url('doRes', ['mid' => input('mid')])}" method="post">
+          <form action="{:url('yefh_forum/index/doRes', ['mid' => input('mid')])}" method="post">
             <div class="layui-form-item layui-form-text">
               <textarea placeholder="请输入内容" class="layui-textarea" name="rcontent"></textarea>
               <button class="layui-btn" lay-submit style="background-color:#822fff;">立即提交</button>

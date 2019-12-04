@@ -42,7 +42,7 @@
       {/if}
       <div class="login-reg">
         {if condition="$Think.session.unick != ''"}
-        <a href="{:url('Index/logout')}">注销</a>
+        <a href="{:url('yefh_forum/index/logout')}">注销</a>
         {else}
         <a href="{:url('yefh_forum/user/login')}">登录</a>
         {/if}
@@ -125,6 +125,12 @@
     $('#title-input').on('focus', function () {
       $(this).css('border', '1px solid #1e9fff')
     })
+    // 监视屏幕的变化改变
+    console.log($(document).width())
+    if($(window).width() < 400){
+      $('[for=post-type]').hide()
+      $("#post-type").css({'width': '50px', 'fontSize': '10px'})
+    }
   })
 </script>
 

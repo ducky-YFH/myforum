@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta http-equiv="X-UA-Compatible" content="ie=edge">
+  <title>Document</title>
+  <link rel="stylesheet" href="__CSS__/reset.css">
+  <link rel="stylesheet/less" href="__CSS__/admin/index.less">
+  <link rel="stylesheet/less" href="__CSS__/admin/nav.less">
+  <script src="__JS__/echarts.min.js"></script>
+  <script src="__CSS__/admin/less.js"></script>
+</head>
+
+<body>
+  <div id="wrapper">
+    <div class="topNav">
+      <span class="top-icon">图标</span>
+      <span class="top-logo">DaHeiShuai</span>
+      <a class="top-logout">注销</a>
+    </div>
+    <div class="sideNav">
+      <div class="side-avatar">
+        <img src="__STATIC__/upload/avatar/猫咪头像.jpg" alt="">
+      </div>
+      <div class="side-username">
+        大黑帅
+      </div>
+      <ul class="side-action">
+        <li>
+          <a href="{:url('yefh_forum_admin/index/index')}">
+            <span>图标</span>
+            <span>首页</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:url('yefh_forum_admin/index/mesdeal')}">
+            <span>图标</span>
+            <span>帖子管理</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:url('yefh_forum_admin/index/userdeal')}">
+            <span>图标</span>
+            <span>用户管理</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:url('yefh_forum_admin/index/sectiondeal')}">
+            <span>图标</span>
+            <span>模板管理</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:url('yefh_forum_admin/index/recycledeal')}">
+            <span>图标</span>
+            <span>回收站管理</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:url('yefh_forum_admin/index/ADdeal')}">
+            <span>图标</span>
+            <span>广告管理</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:url('yefh_forum_admin/index/slideShowdeal')}">
+            <span>图标</span>
+            <span>轮播图管理</span>
+          </a>
+        </li>
+        <li>
+          <a href="{:url('yefh_forum_admin/index/reception')}">
+            <span>图标</span>
+            <span>论坛前台</span>
+          </a>
+        </li>
+      </ul>
+    </div>
+    <div class="content">
+      <h1>数据统计</h1>
+      <div class="chart">
+        <div id="bar" style="width: 600px;height:400px;"></div>
+        <div id="pie" style="width: 400px;height:400px;"></div>
+      </div>
+    </div>
+  </div>
+</body>
+
+<script>
+  // 基于准备好的dom，初始化echarts实例
+  var barChart = echarts.init(document.getElementById('bar'));
+  var pieChart = echarts.init(document.getElementById('pie'));
+  // 指定图表的配置项和数据
+  var barOption = {
+    title: {
+      text: '论坛类型统计'
+    },
+    tooltip: {},
+    legend: {
+      data: ['销量']
+    },
+    xAxis: {
+      data: ["衬衫", "羊毛衫", "雪纺衫", "裤子", "高跟鞋", "袜子"]
+    },
+    yAxis: {},
+    series: [
+      {
+        name: '销量',
+        type: 'bar',
+        data: [180, 220, 446, 660, 220, 880],
+        itemStyle: {
+          normal: {
+            color: function (params) {
+              var colorList = [
+                '#C1232B', '#B5C334', '#FCCE10', '#E87C25', '#27727B',
+                '#FE8463'
+              ];
+              return colorList[params.dataIndex]
+            }
+          }
+        }
+      }
+    ],
+  };
+  var pieOption = {
+    legend: {
+      data: ['直接访问', '邮件营销', '联盟广告', '视频广告', '搜索引擎']
+    },
+    series: [
+      {
+        name: '访问来源',
+        type: 'pie',
+        //饼状图
+        // radius: ['50%', '70%'],
+        avoidLabelOverlap: false,
+        //标签
+        label: {
+          normal: {
+            show: true,
+            position: 'inside',
+            formatter: '{d}%',//模板变量有 {a}、{b}、{c}、{d}，分别表示系列名，数据名，数据值，百分比。{d}数据会根据value值计算百分比
+
+            textStyle: {
+              align: 'center',
+              baseline: 'middle',
+              fontFamily: '微软雅黑',
+              fontSize: 15,
+              fontWeight: 'bolder'
+            }
+          },
+        },
+        data: [
+          { value: 335, name: '直接访问' },
+          { value: 310, name: '邮件营销' },
+          { value: 234, name: '联盟广告' },
+          { value: 135, name: '视频广告' },
+          { value: 1548, name: '搜索引擎' }
+        ]
+      }
+    ]
+  }
+  // 使用刚指定的配置项和数据显示图表。
+  barChart.setOption(barOption);
+  pieChart.setOption(pieOption);
+</script>
+
+</html>

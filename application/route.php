@@ -21,12 +21,22 @@ Route::rule("detail/[:mid]","yefh_forum/index/detail");
 Route::rule("post/[:sid]/[:nowSec]","yefh_forum/index/post");
 // 联系页
 Route::rule("contact","yefh_forum/user/contact");
-// 个人中心
+// 个人中心页
 Route::rule("person","yefh_forum/index/person");
-// 发帖
+// 发帖功能
 Route::rule("doPost","yefh_forum/index/doPost");
-// 上传头像
+//  回复功能
+Route::rule("doRes/:mid","yefh_forum/index/doRes");
+// 上传头像功能
 Route::rule("upMe","yefh_forum/index/upMe");
+// 注销功能
+Route::rule("logout","yefh_forum/index/logout");
+// 登录功能
+Route::rule("dologin","yefh_forum/user/dologin");
+// 注册功能
+Route::rule("doRegister","yefh_forum/user/doRegister");
+// 后台登录页面
+// Route::rule("admin","");
 
 return [
 	// 登录页
@@ -34,5 +44,5 @@ return [
     // 注册页
     'register' => 'yefh_forum/user/register',
     // 报错页
-    '__miss__' => 'yefh_forum/index/misserror' 
+    // '__miss__' => 'yefh_forum/index/misserror' 
 ];
