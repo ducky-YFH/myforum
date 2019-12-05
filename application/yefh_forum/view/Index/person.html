@@ -67,19 +67,19 @@
           <div class="layui-form-item">
             <!-- <label class="layui-form-label">用户名：</label> -->
             <div class="layui-input-inline">
-              <input type="text" name="title" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="{$Think.session.unick}">
+              <input type="text" name="unick" required readonly autocomplete="off" class="layui-input" placeholder="{$Think.session.unick}">
             </div>
           </div>
           <div class="layui-form-item">
             <!-- <label class="layui-form-label">旧密码：</label> -->
             <div class="layui-input-inline">
-              <input type="password" name="password" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="旧密码">
+              <input type="password" name="oldPass" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="旧密码">
             </div>
           </div>
           <div class="layui-form-item">
             <!-- <label class="layui-form-label">新密码：</label> -->
             <div class="layui-input-inline">
-              <input type="password" name="password" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="新密码">
+              <input type="password" name="newPass" required lay-verify="required" autocomplete="off" class="layui-input" placeholder="新密码">
             </div>
           </div>
           <div class="layui-form-item submitbox">
@@ -130,9 +130,6 @@
       // layer.msg(JSON.stringify(data.field));
     });
   });
-  // $(document).ready(function () {
-  //   $("header").load("../Common/header.html");
-  // });
 </script>
 
 </html>

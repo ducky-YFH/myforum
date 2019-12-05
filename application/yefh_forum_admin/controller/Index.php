@@ -10,7 +10,7 @@ class Index extends Controller
   {
     return view();
   }
-  // --------------------------帖子管理事件--------------------------
+  // --------------------------帖子操作--------------------------
   public function mesdeal()
   {
     $section = db("section")
@@ -25,11 +25,18 @@ class Index extends Controller
       ->where("sid", $sid)
       ->select();
     header('Content-Type:application/json; charset=utf-8');
-    exit(json_encode($mes, JSON_UNESCAPED_UNICODE));
+    exit(json_encode($mes, JSON_UNESCAPED_UNICODE));;
+  }
+  public function delmes()
+  {
+    $res = db('mes')->where('mid', input("mid"))->delete();
+    $res == 1 ? $response = ['success' => 1] : $response = ['success' => 0];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));;
   }
   // -------------------------------------------------------------
 
-  // ---------------------------回复事件---------------------------
+  // ---------------------------回复操作---------------------------
   public function resdeal()
   {
     $mes = db()
@@ -38,14 +45,39 @@ class Index extends Controller
       ->view("section", "sname", "section.sid=mes.sid")
       ->where("mid", input('mid'))
       ->find();
-    dump($mes);
-    return view();
+    $res = db()
+      ->view("res", "rid,rcontent,unick,rcreateat")
+      ->view("user", "uimg", "res.unick=user.unick")
+      ->where("mid", input('mid'))
+      ->select();
+    return view("", ["mes" => $mes, "res" => $res]);
   }
+  public function delres()
+  {
+    $res = db('res')->where('rid', input("rid"))->delete();
+    $res == 1 ? $response = ['success' => 1] : $response = ['success' => 0];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));;
+  }
+
   // -------------------------------------------------------------
+
+  // -------------------------用户管理操作-------------------------
   public function userdeal()
   {
-    return view();
+    $user = db('user')->select();
+    return view('', ['user' => $user]);
   }
+  public function userPower()
+  {
+    $re = db('user')
+      ->where('unick',  input("unick"))
+      ->setField('power', input('power'));
+    $re == 1 ? $response = ['success' => 1] : $response = ['success' => 0];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));
+  }
+  // -------------------------------------------------------------
   public function sectiondeal()
   {
     return view();

@@ -6,7 +6,7 @@ use think\Controller;
 
 class User extends Controller
 {
-    // -----------------1711140136-查询模块-----------------
+  // -----------------1711140136-查询模块-----------------
   public function showSec()
   {
     $re = db("section")
@@ -25,24 +25,29 @@ class User extends Controller
     // 获取表单的用户名和密码
     $unick = input('username');
     $upa = input('userpass');
-    // 组织链式操作，执行登陆验证查询
-    $re = db('user')
-      ->where('unick', $unick)
-      ->where('upa', md5($upa))
-      ->find();
-    // 判断查询结果，实现跳转
-    if($re){
-      session('unick', $re['unick']);
-      session('uimg', $re['uimg']);
-      $this->success('登录成功', 'yefh_forum/index/index');
+    $power = db()->view('user', 'power')->where('unick', $unick)->find()['power'];
+    if($power !== '禁止登录，禁止发言'){
+      // 组织链式操作，执行登陆验证查询
+      $re = db('user')
+        ->where('unick', $unick)
+        ->where('upa', md5($upa))
+        ->find();
+      // 判断查询结果，实现跳转
+      if ($re) {
+        session('unick', $re['unick']);
+        session('uimg', $re['uimg']);
+        $this->success('登录成功', 'yefh_forum/index/index');
+      } else {
+        $this->error('登录失败', 'yefh_forum/user/login');
+      }
     }else{
-      $this->error('登录失败', 'yefh_forum/user/login');
+      $this->error("没有登录权限，请联系管理员");
     }
   }
   // --------------------1711140136-注册页面--------------------
   public function register()
   {
-    $sec = $this -> showSec();
+    $sec = $this->showSec();
     return view("", ["sec" => $sec]);
   }
   // -------------------1711140136-执行注册处理-------------------
@@ -55,8 +60,8 @@ class User extends Controller
     $uemail = input("email");
     $utel = input("phone");
     // 查询数据库判断是否存在这个用户
-    $checkRe = db("user")->where("unick",$unick)->find();
-    if(empty($checkRe)){
+    $checkRe = db("user")->where("unick", $unick)->find();
+    if (empty($checkRe)) {
       $info = [
         'unick' => $unick,
         'upa' => md5($upa),
@@ -65,19 +70,19 @@ class User extends Controller
         'uimg' => "default.png"
       ];
       $re = db("user")->insert($info);
-      if($re == 1){
-        $this->success("注册".$unick."成功", "yefh_forum/user/login");
-      }else{
+      if ($re == 1) {
+        $this->success("注册" . $unick . "成功", "yefh_forum/user/login");
+      } else {
         $this->success('注册失败！', 'yefh_forum/user/register');
       }
-    }else{
+    } else {
       $this->success("注册失败,该名称已被注册");
     }
   }
   // ------------------1711140136-联系我们------------------
   public function contact()
   {
-    $sec = $this -> showSec();
+    $sec = $this->showSec();
     return view("", ["sec" => $sec]);
   }
 }
