@@ -1,0 +1,57 @@
+.title{
+  margin-bottom: 10px;
+}
+.show-box {
+  width : 500px;
+  height: 300px;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%,-50%);
+  background: #fff;
+  padding: 5px;
+  box-sizing: border-box;
+  z-index: 9999;
+  border-radius: 10px;
+  box-shadow: 0 0 10px 0 #dee1e6;
+  display: none;
+  h1{
+    text-align: center;
+  }
+  .layui-icon-close{
+    cursor: pointer;
+    font-size: 20px;
+    position: absolute;
+    right: 10px;
+    top: 5px;
+  }
+  .show-box-content{
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%,-50%);
+    width: 60%;
+    // border: 1px solid #1e9fff;
+    input{
+      width: 100%;
+      outline: none;
+      border: none;
+      border-bottom: 1px solid #c9c9c9;
+      line-height: 40px;
+    }
+    .show-box-btn{
+      margin-top: 15px;
+      width: 100%;
+    }
+  }
+}
+.cover{
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 8888;
+  background: rgba(0, 0, 0, 0.6);
+  display: none;
+}

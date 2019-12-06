@@ -67,7 +67,8 @@ class User extends Controller
         'upa' => md5($upa),
         'uemail' => $uemail,
         'utel' => $utel,
-        'uimg' => "default.png"
+        'uimg' => "default.png",
+        'power' => "能正常登录，正常发言"
       ];
       $re = db("user")->insert($info);
       if ($re == 1) {

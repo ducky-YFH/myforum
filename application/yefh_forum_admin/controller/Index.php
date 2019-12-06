@@ -78,15 +78,46 @@ class Index extends Controller
     exit(json_encode($response, JSON_UNESCAPED_UNICODE));
   }
   // -------------------------------------------------------------
+  // -------------------------用户管理操作-------------------------
   public function sectiondeal()
   {
-    return view();
+    $sections = db('section')->select();
+    return view('', ['sections' => $sections]);
   }
+  public function addSection()
+  {
+    $info = [
+      'sname' => input("sname"),
+      'sremark' => input("sremark")
+    ];
+    $re = db("section")->insert($info);
+    $re == 1 ? $response = ['success' => 1] : $response = ['success' => 0];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));
+  }
+  public function alterSection()
+  {
+    $re = db("section")
+      ->where('sid',  input("sid"))
+      ->setField(array('sname' => input('sname'), 'sremark' => input('sremark')));
+    $re == 1 ? $response = ['success' => 1] : $response = ['success' => 0];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));
+  }
+  public function delSection()
+  {
+    $re = db('section')->where('sid', input('sid'))->delete();
+    $re == 1 ? $response = ['success' => 1] : $response = ['success' => 0];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));
+  }
+  // -------------------------------------------------------------
+
   public function recycledeal()
   {
     return view();
   }
-  public function addeal()
+  public function ad()
   {
     return view();
   }

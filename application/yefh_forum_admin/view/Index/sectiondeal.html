@@ -8,7 +8,9 @@
   <title>Document</title>
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
+  <link rel="stylesheet/less" href="__CSS__/admin/table.less">
   <link rel="stylesheet/less" href="__CSS__/admin/nav.less">
+  <link rel="stylesheet/less" href="__CSS__/admin/sectiondeal.less">
   <script src="__CSS__/admin/less.js"></script>
 </head>
 
@@ -57,7 +59,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/index/ADdeal')}">
+        <a href="{:url('yefh_forum_admin/index/ad')}">
           <span class="layui-icon layui-icon-website"></span>
           <span>广告管理</span>
         </a>
@@ -77,8 +79,148 @@
     </ul>
   </div>
   <div class="content">
-    
+    <table class="table">
+      <div class="title">
+        <span>板块管理</span>
+        <button class="addSection layui-btn layui-btn-primary layui-btn-sm">添加板块</button>
+      </div>
+      <!-- Replace "table" with any of the design numbers -->
+      <thead>
+        <th>sid</th>
+        <th>板块名称</th>
+        <th>备注</th>
+        <th>操作</th>
+      </thead>
+      <tbody>
+        {volist name='sections' id='item'}
+        <tr>
+          <td class="sid">{$item.sid}</td>
+          <td class="sname">{$item.sname}</td>
+          <td class="sremark">{$item.sremark}</td>
+          <td>
+            <button type="button" class="editBtn layui-btn layui-btn-normal layui-btn-sm">修改</button>
+            <button type="button" class="delBtn layui-btn layui-btn-danger layui-btn-sm">删除</button>
+            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">回收站</button>
+          </td>
+        </tr>
+        {/volist}
+      </tbody>
+    </table>
+    <div class="show-box">
+      <span class="show-box-close layui-icon layui-icon-close"></span>
+      <h1>添加板块</h1>
+      <div class="show-box-content">
+        <input placeholder="请输入板块名称" type="text">
+        <input placeholder="备注" type="text">
+        <button class="show-box-btn layui-btn layui-btn-normal">确定</button>
+      </div>
+    </div>
+    <div class="cover"></div>
   </div>
+
 </body>
+<script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script>
+  $(function () {
+    let $showBox = $('.show-box')
+    let $showBoxTitle = $showBox.find('h1')
+    let $cover = $('.cover')
+    let $sid = '';
+    let $input = $showBox.children().find('input')
+    let $sureBtn = $showBox.find('.show-box-btn')
+    // 修改、添加按钮事件
+    $('.editBtn, .addSection').on("click", function (e) {
+      $showBox.show();
+      $cover.show();
+      if (e.target.innerHTML === '修改') {
+        let $curSection = $(e.target).parent().siblings('.sname').html()
+        let $curRemark = $(e.target).parent().siblings('.sremark').html()
+        $sid = parseInt($(e.target).parent().siblings('.sid').html())
+        $($input[0]).val($curSection)
+        $($input[1]).val($curRemark)
+        $showBoxTitle.html('修改板块')
+      } else {
+        $showBoxTitle.html('添加板块')
+      }
+    })
+    // 叉叉、确定按钮事件
+    $('.show-box .show-box-close').on('click', function (e) {
+      showHide()
+      $input.val('')
+    })
+    // 确定按钮事件
+    $sureBtn.on('click', (e) => {
+      let $nowInput = $showBox.find('input')
+      let $sname = $($nowInput[0]).val()
+      let $sremark = $($nowInput[1]).val()
+      if ($sname == '' || $sremark == '') {
+        alert('请完善输入信息')
+        return false;
+      } else if ($showBoxTitle.html() == '添加板块') {
+        addSection({ sname: $sname, sremark: $sremark })
+      } else {
+        alterSection({ sid: $sid, sname: $sname, sremark: $sremark })
+      }
+      showHide()
+      $input.val('')
+    })
+    // 删除按钮事件
+    $('.delBtn').on('click', function (e) {
+      // 用不了全局的$sid, 哪个只能用于修改按钮事件
+      let $sid = parseInt($(e.target).parent().siblings('.sid').html())
+      delSection($sid)
+    })
+    // 显示隐藏
+    function showHide() {
+      $showBox.hide()
+      $cover.hide()
+    }
+    // 添加板块
+    function addSection(data) {
+      $.ajax({
+        type: "post",
+        url: "addSection",
+        data: data,
+        dataType: "JSON",
+        success: function (res) {
+          if (res.success == 1) {
+            alert('插入板块成功')
+            window.location.reload()
+          }
+        }
+      });
+    }
+    // 修改板块
+    function alterSection(data) {
+      $.ajax({
+        type: "post",
+        url: "alterSection",
+        data: data,
+        dataType: "JSON",
+        success: function (res) {
+          console.log(res)
+          if (res.success == 1) {
+            alert('修改板块成功')
+            window.location.reload()
+          }
+        }
+      });
+    }
+    function delSection(sid) {
+      $.ajax({
+        type: "post",
+        url: "delsection",
+        data: {sid: sid},
+        dataType: "JSON",
+        success: function (res) {
+          if (res.success == 1) {
+            alert('删除成功')
+            window.location.reload()
+          }
+        }
+      });
+    }
+  })
+</script>
 
 </html>
