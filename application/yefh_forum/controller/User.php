@@ -86,4 +86,11 @@ class User extends Controller
     $sec = $this->showSec();
     return view("", ["sec" => $sec]);
   }
+  // 检查用户是否存在
+  public function checkUser(){
+    $re = db("user")->where("unick", input('unick'))->find();
+    empty($re) ? $response = ['success' => 0] : $response = ['success' => 1];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));
+  }
 }

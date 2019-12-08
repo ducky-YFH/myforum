@@ -7,20 +7,22 @@
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
   <title>Document</title>
   <link rel="stylesheet" href="__CSS__/reset.css">
-  <link rel="stylesheet/less" href="__CSS__/admin/nav.less">
   <link rel="stylesheet/less" href="__CSS__/admin/table.less">
+  <link rel="stylesheet/less" href="__CSS__/admin/ad.less">
   <link rel="stylesheet/less" href="__CSS__/admin/selectbox.less">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
-  <link rel="stylesheet/less" href="__CSS__/admin/userdeal.less">
+  <link rel="stylesheet/less" href="__CSS__/admin/nav.less">
   <script src="__CSS__/admin/less.js"></script>
 </head>
 
 <body>
+  <!-- 顶部栏 -->
   <div class="topNav">
     <span class="top-icon"></span>
     <span class="top-logo">DaHeiShuai</span>
     <a class="top-logout">注销</a>
   </div>
+  <!-- 侧边栏 -->
   <div class="sideNav">
     <div class="side-avatar">
       <img src="__STATIC__/upload/avatar/猫咪头像.jpg" alt="">
@@ -30,79 +32,88 @@
     </div>
     <ul class="side-action">
       <li>
-        <a href="{:url('yefh_forum_admin/index/index')}">
+        <a href="{:url('yefh_forum_admin/deal/index')}">
           <span class="layui-icon layui-icon-chart"></span>
           <span>首页</span>
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/index/mesdeal')}">
+        <a href="{:url('yefh_forum_admin/deal/mesdeal')}">
           <span class="layui-icon layui-icon-tabs"></span>
           <span>帖子管理</span>
         </a>
       </li>
-      <li class="side-active">
-        <a href="{:url('yefh_forum_admin/index/userdeal')}">
+      <li>
+        <a href="{:url('yefh_forum_admin/deal/userdeal')}">
           <span class="layui-icon layui-icon-user"></span>
           <span>用户管理</span>
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/index/sectiondeal')}">
+        <a href="{:url('yefh_forum_admin/deal/sectiondeal')}">
           <span class="layui-icon layui-icon-template-1"></span>
           <span>模板管理</span>
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/index/recycledeal')}">
+        <a href="{:url('yefh_forum_admin/deal/recycledeal')}">
           <span class="layui-icon layui-icon-delete"></span>
           <span>回收站管理</span>
         </a>
       </li>
-      <li>
-        <a href="{:url('yefh_forum_admin/index/ad')}">
+      <li class="side-active">
+        <a href="{:url('yefh_forum_admin/advdeal/ad')}">
           <span class="layui-icon layui-icon-website"></span>
           <span>广告管理</span>
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/index/slideShowdeal')}">
+        <a href="{:url('yefh_forum_admin/advdeal/slidedeal')}">
           <span class="layui-icon layui-icon-picture"></span>
           <span>轮播图管理</span>
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/index/reception')}">
+        <a href="{:url('yefh_forum_admin/deal/reception')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
         </a>
       </li>
     </ul>
   </div>
+  <!-- 内容栏 -->
   <div class="content">
-    <h1>用户管理</h1>
     <table class="table">
+      <div class="title">
+        <span>首页广告管理</span>
+        <a class="layui-btn layui-btn-primary layui-btn-sm" href="{:url('yefh_forum_admin/advdeal/addadv')}">添加广告</a>
+      </div>
       <!-- Replace "table" with any of the design numbers -->
       <thead>
         <th>序号</th>
-        <th>昵称</th>
-        <th>电话</th>
-        <th>邮箱</th>
-        <th>头像</th>
-        <th>用户权限</th>
+        <th>图片</th>
+        <th>标题</th>
+        <th>发布时间</th>
+        <th>文字介绍</th>
+        <th>指向地址</th>
+        <th>审核结果</th>
         <th>操作</th>
       </thead>
       <tbody>
-        {volist name="user" id="item" key="i"}
+        {volist name="ad" id="item"}
         <tr>
-          <td>{$i}</td>
-          <td class="unick">{$item.unick}</td>
-          <td>{$item.utel}</td>
-          <td>{$item.uemail}</td>
-          <td><img class="avatar" src="__STATIC__\upload\avatar\{$item.uimg}" alt=""></td>
-          <td class="cur-power">{$item.power}</td>
+          <td class="aid">{$item.aid}</td>
+          <td><img class="aimg" src="__STATIC__/upload/advimage/ad/{$item.aimg}" alt=""></td>
+          <td>{$item.atitle}</td>
+          <td>{$item.ahref}</td>
+          <td>{$item.aremark}</td>
+          <td>{$item.ahref}</td>
+          <td class="cur-power">{$item.acheck}</td>
           <td>
-            <button type="button" class="editBtn layui-btn layui-btn-normal layui-btn-sm">修改权限</button>
+            <a href="{:url('yefh_forum_admin/advdeal/alteradv',['aid'=>$item.aid])}"
+              class="editBtn layui-btn layui-btn-normal layui-btn-sm">修改</a href="{:url('alteradv')}">
+            <button type="button" class="audit layui-btn layui-btn-primary layui-btn-sm">审核</button>
+            <button type="button" class="delBtn layui-btn layui-btn-danger layui-btn-sm">删除</button>
           </td>
         </tr>
         {/volist}
@@ -116,16 +127,16 @@
       </div>
       <div class="select-content">
         <label>
-          <input class="radio_type" type="radio" name="power" , value="能正常登录，正常发言" checked>
-          <span>正常登录，正常发言</span>
+          <input class="radio_type" type="radio" name="power" , value="审核通过" checked>
+          <span>审核通过</span>
         </label>
         <label>
-          <input class="radio_type" type="radio" name="power" value="能正常登录，禁止发言">
-          <span>正常登录，不能发言</span>
+          <input class="radio_type" type="radio" name="power" value="等待审核">
+          <span>等待审核</span>
         </label>
         <label>
-          <input class="radio_type" type="radio" name="power" value="禁止登录，禁止发言">
-          <span>不能登录，不能发言</span>
+          <input class="radio_type" type="radio" name="power" value="暂停使用">
+          <span>暂停使用</span>
         </label>
         <button class="select-btn layui-btn layui-btn-normal layui-btn-sm">确定修改</button>
       </div>
@@ -135,39 +146,56 @@
 </body>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
 <script>
-  // --------------选择框操作--------------
   $(function () {
+    $('.delBtn').on('click', function (e) {
+      let $aid = $(e.target).parent('td').siblings('.aid').html();
+      delAdv($aid);
+    })
+    // 删除功能
+    function delAdv(aid) {
+      $.ajax({
+        type: "post",
+        url: "delAdv",
+        data: { 'aid': aid },
+        dataType: "JSON",
+        success: function (res) {
+          if (res.success == 1) {
+            window.location.reload();
+          }
+        }
+      });
+    }
+    // 广告审核功能
     let $unick, $curpower = '';
-    let $editBtn = $(".editBtn")
-    let $selectList = ['能正常登录，正常发言', '能正常登录，禁止发言', '禁止登录，禁止发言']
+    let $audit = $(".audit")
+    let $selectList = ['审核通过', '等待审核', '暂停使用']
     // 根据不同权限添加颜色
     updateColor()
-    // 修改
-    $($editBtn).on('click', (e) => {
-      $unick = $(e.target).parent('td').siblings('.unick').html();
+    // 审核按钮
+    $($audit).on('click', (e) => {
+      $aid = $(e.target).parent('td').siblings('.aid').html();
       $curpower = $(e.target).parent('td').siblings('.cur-power');
       $('.select-box, .cover').show();
       $('.select-box .select-title > span:eq(1)').html($unick)
     })
-    // 取消
+    // 取消按钮
     $('.select-quit').on('click', () => {
       $('.select-box, .cover').hide();
     })
-    // 确定
+    // 确定按钮
     $('.select-btn').on('click', () => {
       let $power = $(".select-content input:checked").val();
+      $('.select-box, .cover').hide();
       $.ajax({
         type: "post",
-        url: "userpower",
-        data: { power: $power, unick: $unick },
+        url: "auditad",
+        data: { 'aid': $aid, 'power': $power },
         dataType: "JSON",
-        success: function (response) {
-          response.success == 1 ? alert('修改成功') : alert('选择为当前的，请选择其他的')
-          $curpower.html($power)
-          updateColor()
+        success: function (res) {
+          alert("修改成功！")
+          window.location.reload();
         }
       });
-      $('.select-box, .cover').hide();
     })
     // 根据不同权限设置颜色
     function updateColor() {

@@ -128,9 +128,14 @@
       //,anim: 'updown' //切换动画方式
     });
   });
-  // $(document).ready(function () {
-  //   $("header").load("../Common/header.html");
-  // });
 </script>
+<!-- 插入广告位置 -->
+<div id="AD">
+  {volist name="AD" id="item"}
+  <a href="{$item.ahref}">
+      <img src="__STATIC__/upload/advimage/ad/{$item.aimg}" alt="">
+  </a>
+  {/volist}
+</div>
 
 </html>

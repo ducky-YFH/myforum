@@ -3,6 +3,7 @@
 namespace app\yefh_forum\controller;
 
 use think\Controller;
+use think\Db;
 
 class Index extends Controller
 {
@@ -14,6 +15,12 @@ class Index extends Controller
       ->where('unick', session('unick'))
       ->find()['power'];
     return $power;
+  }
+  // -------------------连接后台数据库-------------------
+  public function connDb()
+  {
+    $db = Db::connect('db_con2');
+    return $db;
   }
   // ----------------------1711140136查询模块----------------------
   public function showSec()
@@ -33,8 +40,15 @@ class Index extends Controller
   // ----------------------1711140136-论坛门户页----------------------
   public function index()
   {
+    // 循环广告体
+    $AD = $this->connDb()->name('ad')->select();
+    foreach ($AD as $key => $val) {
+      if ($val['acheck'] !== '审核通过') {
+        unset($AD[$key]);
+      }
+    }
     $sec = $this->showSec();
-    return view("", ["sec" => $sec]);
+    return view("", ["sec" => $sec, "AD" => $AD]);
   }
   // ----------------------1711140136-帖子列表页----------------------
   public function view($sid = 0)

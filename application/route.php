@@ -35,6 +35,8 @@ Route::rule("logout","yefh_forum/index/logout");
 Route::rule("dologin","yefh_forum/user/dologin");
 // 注册功能
 Route::rule("doRegister","yefh_forum/user/doRegister");
+// 检查用户是否存在
+Route::rule("checkuser","yefh_forum/user/checkUser");
 // 后台登录页面
 // Route::rule("admin","");
 

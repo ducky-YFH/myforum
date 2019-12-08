@@ -136,6 +136,7 @@ ALTER USER 'change'@'localhost' IDENTIFIED WITH mysql_native_password BY '666666
 -- ALTER USER 'admin'@'localhost' IDENTIFIED WITH mysql_native_password BY '12345678'; #更新一下用户的密码
 CREATE USER 'admin'@'localhost' IDENTIFIED BY '99999999';
 GRANT INSERT,UPDATE,SELECT,DELETE ON yefh_forum.* TO 'admin'@'localhost';
+GRANT INSERT,UPDATE,SELECT,DELETE ON yefh_forum_admin.* TO 'admin'@'localhost';
 ALTER USER 'admin'@'localhost' IDENTIFIED BY '99999999' PASSWORD EXPIRE NEVER;   #修改加密规则
 ALTER USER 'admin'@'localhost' IDENTIFIED WITH mysql_native_password BY '99999999'; #更新一下用户的密码
 

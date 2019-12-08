@@ -202,6 +202,13 @@ footer .QR-code {
         height: 200px !important;
     }
 }
-
-
-/* ---------------------媒体查询--------------------- */
+/* 广告 */
+#AD{
+  position: absolute;
+  left: 0;
+  top: 11%;
+}
+#AD img{
+  width: 300px;
+  display: block;
+}

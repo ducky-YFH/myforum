@@ -135,3 +135,14 @@ footer .QR-code {
   width: 86px;
   height: 86px;
 }
+
+.layui-form-item{
+  position: relative;
+}
+.input-user-hint{
+  position: absolute;
+  top: -20px;
+  left: 0px;
+  color: red;
+  display: none;
+}
