@@ -38,7 +38,7 @@ class User extends Controller
         session('uimg', $re['uimg']);
         $this->success('登录成功', 'yefh_forum/index/index');
       } else {
-        $this->error('登录失败', 'yefh_forum/user/login');
+        $this->error('登录失败');
       }
     }else{
       $this->error("没有登录权限，请联系管理员");

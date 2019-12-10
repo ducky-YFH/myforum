@@ -62,6 +62,26 @@ section {
 .carousel {
     margin-bottom: 15px;
 }
+.carousel-item-text{
+  position: absolute;
+  height: 100%;
+  right: 0;
+  top: 0;
+  width: 200px;
+  padding: 10% 2%;
+  text-align: center;
+  color: #fff;
+  background: rgba(0, 0, 0, 0.2);
+}
+
+.carousel-item-text h1{
+  font-size: 24px;
+}
+.carousel-item-text p{
+  margin-top: 20px;
+  text-align: left;
+}
+
 
 .cart-box .title {
     font-size: 25px;
@@ -202,6 +222,187 @@ footer .QR-code {
         height: 200px !important;
     }
 }
+
+/* 修改 */
+
+section {
+  width: 100%;
+  padding: 50px 400px;
+  box-sizing: border-box;
+}
+
+section .postTitle {
+  font-size: 18px;
+  color: #fff;
+  font-weight: bold;
+  /* background: #eb7347; */
+  background: #319ccb;
+  padding: 10px;
+}
+section .postTitle a{
+  color: #fff;
+  font-weight: normal;
+  margin-left: 10px;
+}
+.cart-box {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-end;
+  position: relative;
+  width: 100%;
+  min-height: 80px;
+  padding: 15px;
+  box-sizing: border-box;
+  background-color: #fff;
+  border-bottom: 1px solid#e6e6e6;
+}
+
+.cart-box:hover {
+  background-color: #fbfbfb;
+}
+
+.cart-box .title {
+  font-size: 18px;
+  color: #666666;
+  margin-bottom: 10px;
+}
+
+.post-avatar {
+  display: inline-block;
+}
+
+.post-avatar img {
+  width: 50px;
+  height: 50px;
+  border: 1px solid #e6e6e6;
+  border-radius: 50%;
+  margin-right: 20px;
+}
+
+.post-item {}
+
+.post-item .post-title {
+  font-size: 18px;
+  line-height: 35px;
+}
+
+.post-item .post-author {}
+
+.post-item .post-time {}
+
+.post-read {
+  position: absolute;
+  right: 20px;
+}
+
+.post-read .post-view {
+  color: #ff8b3d;
+  margin-right: 5px;
+}
+
+.post-read .post-comment {
+  color: #ff8b3d;
+}
+
+#pageContainer {
+  display: inline-block;
+  position: relative;
+  left: 50%;
+  transform: translate(-50%);
+}
+
+#pageContainer ul li {
+  display: inline-block;
+  font-size: 16px;
+  width: 45px;
+  line-height: 45px;
+  background: #8131ff;
+  text-align: center;
+  color: #fff;
+}
+
+#pageContainer ul li > span {
+  display: inline-block;
+  width: 100%;
+}
+
+#pageContainer ul li > a {
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  color: #fff;
+}
+
+#pageContainer .active {
+  font-weight: bold;
+  color: #fff;
+  background: #00b3ff;
+}
+
+#pageContainer .disabled {
+  color: #818181;
+}
+
+@media screen and (max-width: 1638px) {
+  section {
+      width: 100%;
+      padding: 50px 20%;
+      box-sizing: border-box;
+  }
+}
+
+@media screen and (max-width: 1260px) {
+  section {
+      width: 100%;
+      padding: 50px 10%;
+      box-sizing: border-box;
+  }
+  .post-item .post-title {
+      font-size: 18px;
+      line-height: 35px;
+  }
+}
+
+@media screen and (max-width: 639px) {
+  section {
+      padding: 10px 2%;
+  }
+  .post-read {
+      font-size: 7px;
+      position: absolute;
+      right: 20px;
+  }
+  .post-item .post-title {
+      font-size: 12px;
+      line-height: 35px;
+  }
+  .post-read span:nth-child(2) {
+      display: none;
+  }
+  .layui-laypage span {
+      padding: 0 10px;
+  }
+  footer ul {
+      display: none;
+  }
+  .reg {
+      display: none;
+  }
+  .logo {
+      display: none;
+  }
+  #pageContainer ul li {
+      display: inline-block;
+      font-size: 16px;
+      width: 30px;
+      line-height: 30px;
+      background: #8131ff;
+      text-align: center;
+      color: #fff;
+  }
+}
+
+
 /* 广告 */
 #AD{
   position: absolute;

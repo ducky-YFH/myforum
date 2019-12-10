@@ -6,8 +6,16 @@ use think\Controller;
 
 class Deal extends Controller
 {
+  // --------------------检查登录状态---------------------
+  public function check()
+  {
+    if (!session('?user')) {
+      $this->error('你尚未登录', 'yefh_forum_admin/admin/alogin');
+    }
+  }
   public function index()
   {
+    $this->check();
     return view();
   }
   public function forumInfo()
@@ -23,6 +31,7 @@ class Deal extends Controller
   // 显示所有帖子
   public function mesdeal()
   {
+    $this->check();
     $section = db("section")
       ->select();
     return view("", ["section" => $section]);
@@ -52,6 +61,7 @@ class Deal extends Controller
   // 帖子回复信息显示
   public function resdeal()
   {
+    $this->check();
     $mes = db()
       ->view("mes", "mtitle,unick,mcreateat")
       ->view("user", "unick", "mes.unick=user.unick")
@@ -80,6 +90,7 @@ class Deal extends Controller
   // 用户显示
   public function userdeal()
   {
+    $this->check();
     $user = db('user')->select();
     return view('', ['user' => $user]);
   }
@@ -98,6 +109,7 @@ class Deal extends Controller
   // 板块显示
   public function sectiondeal()
   {
+    $this->check();
     $sections = db('section')->select();
     return view('', ['sections' => $sections]);
   }
@@ -135,6 +147,7 @@ class Deal extends Controller
 
   public function recycledeal()
   {
+    $this->check();
     return view();
   }
 }

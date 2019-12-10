@@ -54,32 +54,40 @@
       <div class="cart-box carousel">
         <div class="layui-carousel" id="carousel">
           <div carousel-item>
-            <div><img src="__IMG__/slide_img1.jpg" alt=""></div>
-            <div><img src="__IMG__/slide_img2.jpg" alt=""></div>
-            <div><img src="__IMG__/slide_img3.jpg" alt=""></div>
-            <div><img src="__IMG__/slide_img4.jpg" alt=""></div>
-            <div><img src="__IMG__/slide_img5.jpg" alt=""></div>
+            {volist name="cData" id="item"}
+            <a href="{:url('yefh_forum/index/detail', ['mid'=>$item.mid])}">
+              <div>
+                <img class="cimg" src="__STATIC__/upload/advimage/slide/{$item.cimg}" alt="">
+                <div class="carousel-item-text">
+                  <h1>{$item.ctitle}</h1>
+                  <p>{$item.cremark}</p>
+                </div>
+              </div>
+            </a>
+            {/volist}
           </div>
         </div>
       </div>
-      <div class="cart-box">
-        <h1 class="title"><a href="">美国漫威漫画旗下超级英雄</a></h1>
-        <p class="browse-info">
-          <span class="time">2019-9-23日</span>
-          <span class="browse">
-            浏览：<span class="count">2000</span>
-          </span>
-          <span class="comment">
-            评论：<span class="count">900</span>
-          </span>
-        </p>
-        <div class="imgBox">
-          <a href=""><img src="__IMG__/蜘蛛侠20.jpg" alt=""></a>
-        </div>
-        <p class="introduce">
-          由于意外被一只受过放射性感染的蜘蛛咬伤，因此获得了和蜘蛛一样的超能力、超人般的耐力、反应、敏捷和速度。并发明了蛛网发射器，从此化身蜘蛛侠（Spider-Man）守卫纽约。
-        </p>
+      <div class="postTitle">
+        <span>最新帖子</span>
+        {volist name="sec" id="secrow"}
+        <a href="{:url('yefh_forum/index/view',['sid' => $secrow.sid])}">{$secrow.sname}</a>
+        {/volist}
       </div>
+      {volist name="mes" id="mesrow"}
+      <div class="cart-box">
+        <div class="post-avatar">
+          <img src="__STATIC__\upload\avatar\{$mesrow.uimg}" alt="">
+        </div>
+        <div class="post-item">
+          <h1 class="post-title">
+            <a href="{:url('yefh_forum/index/detail', ['mid'=>$mesrow.mid])}">{$mesrow.mtitle}</a>
+          </h1>
+          <span class="post-author">{$mesrow.unick}</span>
+          <span class="post-time">{$mesrow.mcreateat|date="Y-m-d h:m:s",###}</span>
+        </div>
+      </div>
+      {/volist}
     </section>
     <div id="pageContainer"></div>
     <footer>
@@ -115,7 +123,7 @@
 </body>
 <script src="__STATIC__/common/jquery/jquery.js"></script>
 <script src="__STATIC__/common/layui/layui.js"></script>
-<script src="__STATIC__/common/layui/lay/modules/form.js"></script>
+<!-- <script src="__STATIC__/common/layui/lay/modules/form.js"></script> -->
 <script>
   layui.use('carousel', function () {
     var carousel = layui.carousel;
@@ -133,7 +141,7 @@
 <div id="AD">
   {volist name="AD" id="item"}
   <a href="{$item.ahref}">
-      <img src="__STATIC__/upload/advimage/ad/{$item.aimg}" alt="">
+    <img src="__STATIC__/upload/advimage/ad/{$item.aimg}" alt="">
   </a>
   {/volist}
 </div>

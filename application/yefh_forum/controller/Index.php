@@ -40,6 +40,7 @@ class Index extends Controller
   // ----------------------1711140136-论坛门户页----------------------
   public function index()
   {
+    $sec = $this->showSec();
     // 循环广告体
     $AD = $this->connDb()->name('ad')->select();
     foreach ($AD as $key => $val) {
@@ -47,8 +48,21 @@ class Index extends Controller
         unset($AD[$key]);
       }
     }
-    $sec = $this->showSec();
-    return view("", ["sec" => $sec, "AD" => $AD]);
+    // 前10个最新帖子
+    $mes = db()
+      ->view("mes", "mid,mtitle,mcontent,unick,mcreateat,sid")
+      ->view("user", "uimg", "mes.unick=user.unick")
+      ->order('mcreateat desc')
+      ->limit(0, 10)
+      ->select();
+    // 轮播图
+    $cData = $this->connDb()->name('carousel')->select();
+    foreach ($cData as $key => $val) {
+      if ($val['ccheck'] !== '审核通过') {
+        unset($cData[$key]);
+      }
+    }
+    return view("", ["sec" => $sec, "AD" => $AD, "mes" => $mes, "cData" => $cData]);
   }
   // ----------------------1711140136-帖子列表页----------------------
   public function view($sid = 0)

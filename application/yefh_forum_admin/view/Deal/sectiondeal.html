@@ -5,7 +5,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>板块管理</title>
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
   <link rel="stylesheet/less" href="__CSS__/admin/table.less">
@@ -18,7 +18,7 @@
   <div class="topNav">
     <span class="top-icon"></span>
     <span class="top-logo">DaHeiShuai</span>
-    <a class="top-logout">注销</a>
+    <a class="top-logout" href="{:url('yefh_forum_admin/admin/aLogout')}">注销</a>
   </div>
   <div class="sideNav">
     <div class="side-avatar">
@@ -71,6 +71,12 @@
         </a>
       </li>
       <li>
+        <a href="{:url('yefh_forum_admin/admin/apa')}">
+          <span class="layui-icon layui-icon-face-smile-b"></span>
+          <span>我的</span>
+        </a>
+      </li>
+      <li>
         <a href="{:url('yefh_forum_admin/deal/reception')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
@@ -117,7 +123,6 @@
     </div>
     <div class="cover"></div>
   </div>
-
 </body>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
 <script>
@@ -210,7 +215,7 @@
       $.ajax({
         type: "post",
         url: "delsection",
-        data: {sid: sid},
+        data: { sid: sid },
         dataType: "JSON",
         success: function (res) {
           if (res.success == 1) {
