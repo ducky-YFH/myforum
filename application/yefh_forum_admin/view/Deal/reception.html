@@ -23,7 +23,7 @@
       <img src="__STATIC__/upload/avatar/猫咪头像.jpg" alt="">
     </div>
     <div class="side-username">
-      大黑帅
+      {$Think.session.user}
     </div>
     <ul class="side-action">
       <li class="side-active">
@@ -75,7 +75,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/deal/reception')}">
+        <a href="{:url('yefh_forum/index/index')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
         </a>

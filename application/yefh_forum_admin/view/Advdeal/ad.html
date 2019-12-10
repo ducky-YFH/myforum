@@ -80,7 +80,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/deal/reception')}">
+          <a href="{:url('yefh_forum/index/index')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
         </a>
@@ -111,7 +111,7 @@
           <td class="aid">{$item.aid}</td>
           <td><img class="aimg" src="__STATIC__/upload/advimage/ad/{$item.aimg}" alt=""></td>
           <td>{$item.atitle}</td>
-          <td>{$item.ahref}</td>
+          <td>{$item.atime|date="Y:m:d h:m:s",###}</td>
           <td>{$item.aremark}</td>
           <td>{$item.ahref}</td>
           <td class="cur-power">{$item.acheck}</td>
@@ -181,24 +181,24 @@
     $($audit).on('click', (e) => {
       $aid = $(e.target).parent('td').siblings('.aid').html();
       $curpower = $(e.target).parent('td').siblings('.cur-power');
-      $('.select-box, .cover').show();
+      $('.select-box, .cover').show(300);
       $('.select-box .select-title > span:eq(1)').html($unick)
     })
     // 取消按钮
     $('.select-quit').on('click', () => {
-      $('.select-box, .cover').hide();
+      $('.select-box, .cover').hide(300);
     })
     // 确定按钮
     $('.select-btn').on('click', () => {
       let $power = $(".select-content input:checked").val();
-      $('.select-box, .cover').hide();
+      $('.select-box, .cover').hide(300);
       $.ajax({
         type: "post",
         url: "auditad",
         data: { 'aid': $aid, 'power': $power },
         dataType: "JSON",
         success: function (res) {
-          alert("修改成功！")
+          // alert("修改成功！")
           window.location.reload();
         }
       });

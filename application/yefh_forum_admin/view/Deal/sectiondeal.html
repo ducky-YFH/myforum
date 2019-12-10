@@ -25,7 +25,7 @@
       <img src="__STATIC__/upload/avatar/猫咪头像.jpg" alt="">
     </div>
     <div class="side-username">
-      大黑帅
+      {$Think.session.user}
     </div>
     <ul class="side-action">
       <li>
@@ -77,7 +77,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/deal/reception')}">
+        <a href="{:url('yefh_forum/index/index')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
         </a>
@@ -135,8 +135,8 @@
     let $sureBtn = $showBox.find('.show-box-btn')
     // 修改、添加按钮事件
     $('.editBtn, .addSection').on("click", function (e) {
-      $showBox.show();
-      $cover.show();
+      $showBox.show(300);
+      $cover.show(300);
       if (e.target.innerHTML === '修改') {
         let $curSection = $(e.target).parent().siblings('.sname').html()
         let $curRemark = $(e.target).parent().siblings('.sremark').html()
@@ -177,8 +177,8 @@
     })
     // 显示隐藏
     function showHide() {
-      $showBox.hide()
-      $cover.hide()
+      $showBox.hide(300)
+      $cover.hide(300)
     }
     // 添加板块
     function addSection(data) {
@@ -189,7 +189,7 @@
         dataType: "JSON",
         success: function (res) {
           if (res.success == 1) {
-            alert('插入板块成功')
+            // alert('插入板块成功')
             window.location.reload()
           }
         }
@@ -205,7 +205,7 @@
         success: function (res) {
           console.log(res)
           if (res.success == 1) {
-            alert('修改板块成功')
+            // alert('修改板块成功')
             window.location.reload()
           }
         }

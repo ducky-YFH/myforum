@@ -26,7 +26,7 @@
       <img src="__STATIC__/upload/avatar/猫咪头像.jpg" alt="">
     </div>
     <div class="side-username">
-      大黑帅
+      {$Think.session.user}
     </div>
     <ul class="side-action">
       <li>
@@ -78,7 +78,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/deal/reception')}">
+        <a href="{:url('yefh_forum/index/index')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
         </a>
@@ -152,12 +152,12 @@
     $($editBtn).on('click', (e) => {
       $unick = $(e.target).parent('td').siblings('.unick').html();
       $curpower = $(e.target).parent('td').siblings('.cur-power');
-      $('.select-box, .cover').show();
+      $('.select-box, .cover').show(300);
       $('.select-box .select-title > span:eq(1)').html($unick)
     })
     // 取消
     $('.select-quit').on('click', () => {
-      $('.select-box, .cover').hide();
+      $('.select-box, .cover').hide(300);
     })
     // 确定
     $('.select-btn').on('click', () => {
@@ -168,12 +168,15 @@
         data: { power: $power, unick: $unick },
         dataType: "JSON",
         success: function (response) {
-          response.success == 1 ? alert('修改成功') : alert('选择为当前的，请选择其他的')
+          if (response.success == 1) {
+            $('.select-box, .cover').hide(300);
+          } else {
+            alert('选择为当前的，请选择其他的')
+          }
           $curpower.html($power)
           updateColor()
         }
       });
-      $('.select-box, .cover').hide();
     })
     // 根据不同权限设置颜色
     function updateColor() {
