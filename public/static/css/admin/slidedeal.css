@@ -1,25 +1,21 @@
-.title{
+.title {
   margin-bottom: 10px;
 }
 .layui-carousel {
   width: 100% !important;
   height: 800px !important;
 }
-
-.layui-carousel>[carousel-item] {
+.layui-carousel > [carousel-item] {
   height: 100% !important;
 }
-
 .layui-carousel img {
   width: 100%;
   height: 100%;
 }
-
 .carousel {
   margin-bottom: 15px;
 }
-
-.carousel-item-text{
+.carousel-item-text {
   position: absolute;
   height: 100%;
   right: 0;
@@ -29,32 +25,31 @@
   text-align: center;
   color: #fff;
   background: rgba(0, 0, 0, 0.2);
-  h1{
-    font-size: 24px;
-  }
-  p{
-    margin-top: 20px;
-    text-align: left;
-    line-height: 40px;
-  }
 }
-
-.cimg{
+.carousel-item-text h1 {
+  font-size: 24px;
+}
+.carousel-item-text p {
+  margin-top: 20px;
+  text-align: left;
+  line-height: 40px;
+}
+.cimg {
   width: 200px;
   height: 100px;
 }
-.wrapper{
+.wrapper {
   position: relative;
   width: 100%;
   height: 100%;
 }
-.td-cremark{
+.td-cremark {
   padding-top: 40px !important;
-	display: -webkit-box;
-	-webkit-box-orient: vertical;
-	-webkit-line-clamp: 1; // 指定行数
-	overflow: hidden;
-	float: left;
-	word-break: break-all;
-	text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 1;
+  overflow: hidden;
+  float: left;
+  word-break: break-all;
+  text-overflow: ellipsis;
 }
