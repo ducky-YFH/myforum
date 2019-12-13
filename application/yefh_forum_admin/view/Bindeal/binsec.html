@@ -8,6 +8,7 @@
   <title>板块回收站管理</title>
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="__STATIC__/common/toast/toast.css" media="all">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__CSS__/admin/binsec.css">
@@ -121,14 +122,18 @@
 </body>
 <script src="__STATIC__/common/layui/layui.js" charset="utf-8"></script>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
+
 <script>
   layui.use('form', function () {
   });
   let $backBtn = $('.backBtn');
   let $delBtn = $(".delBtn")
+  let toast = new Toast()
   // 还原功能
   $backBtn.on('click', function () {
     let $sid = $(this).parents('tr').find('.sid').html();
+    $tr = $(this).parents('tr')
     $.ajax({
       type: "post",
       url: "binsecback",
@@ -136,8 +141,10 @@
       dataType: "JSON",
       success: function (res) {
         if (res.success == 1) {
-          console.log('还原成功');
-          window.location.reload();
+          toast.success('还原成功！')
+          $tr.remove()
+        } else {
+          toast.danger('还原失败！')
         }
       }
     });
@@ -145,6 +152,7 @@
   // 彻底删除功能
   $delBtn.on('click', function () {
     let $sid = $(this).parents('tr').find('.sid').html();
+    $tr = $(this).parents('tr')
     $.ajax({
       type: "post",
       url: "delsec",
@@ -153,8 +161,10 @@
       success: function (res) {
         console.log(res);
         if (res.success == 1) {
-          console.log('删除成功');
-          window.location.reload();
+          toast.success('彻底删除成功！')
+          $tr.remove()
+        } else {
+          toast.danger('彻底删除失败！')
         }
       }
     });

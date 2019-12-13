@@ -172,12 +172,20 @@
                   <button class="delBtn layui-btn layui-btn-danger layui-btn-sm" data-sid="" href="">彻底删除</button>
                   ${item.rbin > 1 ? '<button class="backBtn layui-btn layui-btn-primary layui-btn-sm" data-sid="" href="">还原</button>' : ''}
                 </td>
-                <td>${item.rbin}</td>
+                <td>${filterRbin(item.rbin)}</td>
               </tr>`)
             });
           }
         }
       });
+    }
+    // 格式化rbin
+    function filterRbin(rbin) {
+      if (rbin == 1) {
+        return '删除板块'
+      } else {
+        return '删除帖子'
+      }
     }
     // 还原回复
     function backRes(rid) {

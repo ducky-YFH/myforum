@@ -11,8 +11,9 @@
   <link rel="stylesheet" href="__CSS__/admin/ad.css">
   <link rel="stylesheet" href="__CSS__/admin/selectbox.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="__STATIC__/common/toast/toast.css" media="all">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
-  
+
 </head>
 
 <body>
@@ -80,7 +81,7 @@
         </a>
       </li>
       <li>
-          <a href="{:url('yefh_forum/index/index')}">
+        <a href="{:url('yefh_forum/index/index')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
         </a>
@@ -151,26 +152,17 @@
   </div>
 </body>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
+
 <script>
   $(function () {
+    // 删除按钮
     $('.delBtn').on('click', function (e) {
       let $aid = $(e.target).parent('td').siblings('.aid').html();
-      delAdv($aid);
+      $tr = $(this).parents('tr')
+      delAdv($tr,$aid);
     })
-    // 删除功能
-    function delAdv(aid) {
-      $.ajax({
-        type: "post",
-        url: "delAdv",
-        data: { 'aid': aid },
-        dataType: "JSON",
-        success: function (res) {
-          if (res.success == 1) {
-            window.location.reload();
-          }
-        }
-      });
-    }
+    let toast = new Toast()
     // 广告审核功能
     let $unick, $curpower = '';
     let $audit = $(".audit")
@@ -198,11 +190,31 @@
         data: { 'aid': $aid, 'power': $power },
         dataType: "JSON",
         success: function (res) {
-          // alert("修改成功！")
-          window.location.reload();
+          if (res.success == 1) {
+            toast.success('更换成功')
+            $curpower.html($power)
+            updateColor()
+          }
         }
       });
     })
+    // 删除功能
+    function delAdv(tr, aid) {
+      $.ajax({
+        type: "post",
+        url: "delAdv",
+        data: { 'aid': aid },
+        dataType: "JSON",
+        success: function (res) {
+          if (res.success == 1) {
+            toast.success('删除成功！')
+            tr.remove()
+          }else{
+            toast.danger('删除失败！')
+          }
+        }
+      });
+    }
     // 根据不同权限设置颜色
     function updateColor() {
       $('tbody .cur-power').each((index, item) => {

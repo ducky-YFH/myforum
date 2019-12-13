@@ -8,10 +8,12 @@
   <title>板块管理</title>
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="__STATIC__/common/toast/toast.css">
+  </link>
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
   <link rel="stylesheet" href="__CSS__/admin/sectiondeal.css">
-  
+
 </head>
 
 <body>
@@ -124,8 +126,11 @@
   </div>
 </body>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
+
 <script>
   $(function () {
+    let toast = new Toast()
     let $showBox = $('.show-box')
     let $showBoxTitle = $showBox.find('h1')
     let $cover = $('.cover')
@@ -172,7 +177,8 @@
     $('.delBtn').on('click', function (e) {
       // 用不了全局的$sid, 哪个只能用于修改按钮事件
       let $sid = parseInt($(e.target).parent().siblings('.sid').html())
-      delSection($sid)
+      let $tr = $(e.target).parents('tr')
+      delSection($tr, $sid)
     })
     // 显示隐藏
     function showHide() {
@@ -189,7 +195,10 @@
         success: function (res) {
           if (res.success == 1) {
             // alert('插入板块成功')
-            window.location.reload()
+            toast.success('添加成功！')
+            setTimeout(() => {
+              window.location.reload()
+            }, 500)
           }
         }
       });
@@ -204,13 +213,18 @@
         success: function (res) {
           console.log(res)
           if (res.success == 1) {
-            // alert('修改板块成功')
-            window.location.reload()
+            toast.success('修改成功！')
+            setTimeout(() => {
+              window.location.reload()
+            }, 500)
           }
+        },
+        error: function () {
+          toast.success('服务器翻车了')
         }
       });
     }
-    function delSection(sid) {
+    function delSection(tr, sid) {
       $.ajax({
         type: "post",
         url: "delsection",
@@ -219,9 +233,12 @@
         success: function (res) {
           console.log(res);
           if (res.success == 1) {
-            // alert('删除成功')
-            window.location.reload()
+            toast.success('删除成功！')
+            tr.remove()
           }
+        },
+        error: function () {
+          toast.success('服务器翻车了')
         }
       });
     }

@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="__CSS__/admin/resdeal.css">
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
-  
+  <link rel="stylesheet" href="__STATIC__/common/toast/toast.css" media="all">
 </head>
 
 <body>
@@ -109,15 +109,17 @@
     <table class="table">
       <!-- Replace "table" with any of the design numbers -->
       <thead>
+        <th>序号</th>
         <th>回复内容</th>
         <th>发布时间</th>
         <th>作者</th>
         <th>操作</th>
       </thead>
-      <tbody>
+      <tbody class="tbody">
         <!-- 数据 -->
         {volist name="res" id="item"}
         <tr>
+          <td>{$i}</td>
           <td>{$item.rcontent}</td>
           <td>{$item.rcreateat|date="Y-m-d h:m:s",###}</td>
           <td>{$item.unick}</td>
@@ -131,8 +133,10 @@
 </body>
 <script src="__STATIC__/common/layui/layui.js" charset="utf-8"></script>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
 
 <script>
+  let toast = new Toast()
   $(function () {
     layui.use('element', function () {
       var $ = layui.jquery
@@ -140,16 +144,17 @@
       $('.site-demo-active').on('click', function () {
         var othis = $(this), type = othis.data('type');
       });
+      let $tbody = $('.tbody')
       $('.delBtn').on('click', (e) => {
         let rid = e.target.dataset.rid
-        delRes(rid)
+        let $tr = $(e.target).parents('tr')
+        delRes($tr, rid)
       })
     });
   })
 
   // 删除回复
-  function delRes(rid) {
-    console.log(rid);
+  function delRes(tr, rid) {
     $.ajax({
       type: "get",
       url: "delres",
@@ -157,13 +162,14 @@
       dataType: "json",
       success: function (response) {
         if (response.success == 1) {
-          window.location.reload()
+          toast.success('删除成功！')
+          tr.remove();
         } else {
-          alert("删除失败")
+          toast.danger('删除失败！')
         }
       },
       error: function () {
-        alert("服务器出错")
+        toast.danger('服务器翻车了！')
       }
     });
   }

@@ -8,6 +8,7 @@
   <title>帖子回收站管理</title>
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="__STATIC__/common/toast/toast.css" media="all">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__CSS__/admin/binsec.css">
@@ -119,6 +120,8 @@
 </body>
 <script src="__STATIC__/common/layui/layui.js" charset="utf-8"></script>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
+
 <script>
   $(function () {
     layui.use('form', function () {
@@ -126,6 +129,7 @@
     let $tbody = $('.tbody')
     let $sid = 0
     let $delBtn = $('.delBtn')
+    let toast = new Toast()
     // 筛选帖子
     $('.section-box').on('change', function (e) {
       $sid = $(this).val();
@@ -134,11 +138,13 @@
     // 还原帖子
     $('body').on('click', '.backBtn', function (e) {
       $mid = $(this).parents('tr').find('.mid').html()
-      backMes($mid);
+      $tr = $(e.target).parents("tr")
+      backMes($tr, $mid);
     })
     // 彻底删除功能
     $('body').on('click', '.delBtn', function (e) {
       $mid = $(this).parents('tr').find('.mid').html()
+      $tr = $(this).parents('tr')
       $.ajax({
         type: "post",
         url: "delmes",
@@ -147,8 +153,8 @@
         success: function (res) {
           console.log(res);
           if (res.success == 1) {
-            console.log('删除成功');
-            getMesdata($sid);
+            toast.success('彻底删除成功！')
+            $tr.remove()
           }
         }
       });
@@ -174,15 +180,22 @@
                   <button class="delBtn layui-btn layui-btn-danger layui-btn-sm" data-sid="" href="">彻底删除</button>
                   ${item.mbin > 1 ? '<button class="backBtn layui-btn layui-btn-primary layui-btn-sm" data-sid="" href="">还原</button>' : ''}
                 </td>
-                <td>${item.mbin}</td>
+                <td>${filterMbin(item.mbin)}</td>
               </tr>`)
             });
           }
         }
       });
     }
+    function filterMbin(mbin) {
+      if (mbin == 1) {
+        return '删除板块'
+      } else {
+        return '删除帖子'
+      }
+    }
     // 还原帖子
-    function backMes(mid) {
+    function backMes(tr, mid) {
       $.ajax({
         type: "post",
         url: "backMes",
@@ -190,7 +203,8 @@
         dataType: "JSON",
         success: function (res) {
           if (res.success == 1) {
-            getMesdata($sid);
+            toast.success("还原成功！")
+            tr.remove()
           }
         }
       });

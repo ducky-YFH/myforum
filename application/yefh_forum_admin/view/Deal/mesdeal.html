@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
-
+  <link rel="stylesheet" href="__STATIC__/common/toast/toast.css">
 </head>
 
 <body>
@@ -119,8 +119,11 @@
 
 <script src="__STATIC__/common/layui/layui.js" charset="utf-8"></script>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
+
 
 <script>
+  let toast = new Toast()
   $(function () {
     layui.use('element', function () {
       var $ = layui.jquery
@@ -129,7 +132,6 @@
         var othis = $(this), type = othis.data('type');
       });
     });
-
     // 获取表格元素
     let $tbody = $(".table tbody");
     // 获取板块选择元素
@@ -191,13 +193,14 @@
         console.log(response);
         if (response.success == 1) {
           let cursid = $('.mes-current').data('cursid')
+          toast.success('删除成功！')
           getData($(".table tbody"), cursid)
         } else {
-          alert("删除失败")
+          toast.danger('删除失败！')
         }
       },
       error: function () {
-        alert("服务器出错")
+        toast.danger('服务器翻车了！')
       }
     });
   }

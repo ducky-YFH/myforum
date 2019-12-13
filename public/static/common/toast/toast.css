@@ -1,0 +1,22 @@
+.toast {
+  width: 400px;
+  height: 50px;
+  position: fixed;
+  left: 50%;
+  top: 4%;
+  transform: translateX(-50%);
+  border-radius: 5px;
+  z-index: 111111;
+  display: none;
+  text-align: center;
+  color: #fff;
+  line-height: 50px;
+  font-size: 20px;
+}
+.success{
+  background: #4aca6d;
+}
+
+.danger{
+  background: #df4a26;
+}

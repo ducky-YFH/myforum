@@ -11,8 +11,8 @@
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__CSS__/admin/selectbox.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
+  <link rel="stylesheet" href="__STATIC__/common/toast/toast.css" media="all">
   <link rel="stylesheet" href="__CSS__/admin/userdeal.css">
-  
 </head>
 
 <body>
@@ -140,9 +140,12 @@
   </div>
 </body>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
+<script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
+
 <script>
   // --------------选择框操作--------------
   $(function () {
+    let toast = new Toast()
     let $unick, $curpower = '';
     let $editBtn = $(".editBtn")
     let $selectList = ['能正常登录，正常发言', '能正常登录，禁止发言', '禁止登录，禁止发言']
@@ -170,6 +173,7 @@
         success: function (response) {
           if (response.success == 1) {
             $('.select-box, .cover').hide(300);
+            toast.success('修改成功')
           } else {
             alert('选择为当前的，请选择其他的')
           }
