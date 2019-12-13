@@ -9,29 +9,7 @@
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
-  
-  <style>
-    .input-img {
-      position: relative;
-      display: flex;
-      color: #e06c75;
-    }
-
-    .input-img::before {
-      content: '请选择上传图片';
-      font-size: 15px;
-      position: absolute;
-      left: 0;
-      padding: 8px 0;
-      width: 110px;
-      height: 100%;
-      background: #ffd777;
-    }
-
-    .originImg {
-      width: 100px;
-    }
-  </style>
+  <link rel="stylesheet" href="__CSS__/admin/alteradv.css">
 </head>
 
 <body>
@@ -73,7 +51,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/deal/recycledeal')}">
+        <a href="{:url('yefh_forum_admin/bindeal/binsec')}">
           <span class="layui-icon layui-icon-delete"></span>
           <span>回收站管理</span>
         </a>
@@ -108,12 +86,12 @@
     <form class="layui-form" action="{:url('yefh_forum_admin/advdeal/changeAdv')}" enctype="multipart/form-data"
       method="post">
       <div>
-        <span>原图片：</span>
-        <img class="originImg" src="__STATIC__/upload/advimage/ad/{$curAdv.aimg}" alt="">
+        <span class="origin-title">原图片：</span>
+        <img class="origin-img" src="__STATIC__/upload/advimage/ad/{$curAdv.aimg}" alt="">
       </div>
-      <div class="layui-form-item">
+      <div class="layui-form-item change-img">
         <label>
-          <span>图片：</span>
+          <span class="origin-title">修改图片：</span>
           <input class="layui-input input-img" type="file" name="aimg">
         </label>
       </div>
@@ -121,25 +99,25 @@
       <input type="hidden" name="aid" value="{$curAdv.aid}">
       <div class="layui-form-item">
         <label>
-          <span>原广告标题：{$curAdv.atitle}</span>
+          <span class="origin-title">原广告标题：</span><span>{$curAdv.atitle}</span>
           <input class="layui-input" type="text" name="atitle">
         </label>
       </div>
       <div class="layui-form-item">
         <label>
-          <span>原广告地址：{$curAdv.ahref}</span>
+          <span class="origin-title">原广告地址：</span><span>{$curAdv.ahref}</span>
           <input class="layui-input" type="text" name="ahref">
         </label>
       </div>
       <div class="layui-form-item layui-form-text">
         <label>
-          <span>原广告备注：{$curAdv.aremark}</span>
+          <span class="origin-title">原广告备注：</span><span>{$curAdv.aremark}</span>
           <textarea class="layui-textarea" name="aremark"></textarea>
         </label>
       </div>
       <div class="layui-form-item">
         <label>
-          <span>广告指向内部帖子的mid：{$curAdv.mid}</span>
+          <span class="origin-title">广告指向内部帖子的mid：</span><span>{$curAdv.mid}</span>
           <input class="layui-input" type="text" name="mid">
         </label>
       </div>

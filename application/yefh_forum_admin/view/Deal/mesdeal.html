@@ -11,7 +11,7 @@
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
-  
+
 </head>
 
 <body>
@@ -53,7 +53,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/deal/recycledeal')}">
+        <a href="{:url('yefh_forum_admin/bindeal/binsec')}">
           <span class="layui-icon layui-icon-delete"></span>
           <span>回收站管理</span>
         </a>
@@ -120,7 +120,6 @@
 <script src="__STATIC__/common/layui/layui.js" charset="utf-8"></script>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
 
-<!-- 注意：如果你直接复制所有代码到本地，上述js路径需要改成你本地的 -->
 <script>
   $(function () {
     layui.use('element', function () {
@@ -130,7 +129,6 @@
         var othis = $(this), type = othis.data('type');
       });
     });
-
 
     // 获取表格元素
     let $tbody = $(".table tbody");
@@ -190,6 +188,7 @@
       data: { "mid": mid },
       dataType: "json",
       success: function (response) {
+        console.log(response);
         if (response.success == 1) {
           let cursid = $('.mes-current').data('cursid')
           getData($(".table tbody"), cursid)

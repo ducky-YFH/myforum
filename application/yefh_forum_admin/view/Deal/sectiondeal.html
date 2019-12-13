@@ -53,7 +53,7 @@
         </a>
       </li>
       <li>
-        <a href="{:url('yefh_forum_admin/deal/recycledeal')}">
+        <a href="{:url('yefh_forum_admin/bindeal/binsec')}">
           <span class="layui-icon layui-icon-delete"></span>
           <span>回收站管理</span>
         </a>
@@ -106,7 +106,6 @@
           <td>
             <button type="button" class="editBtn layui-btn layui-btn-normal layui-btn-sm">修改</button>
             <button type="button" class="delBtn layui-btn layui-btn-danger layui-btn-sm">删除</button>
-            <button type="button" class="layui-btn layui-btn-primary layui-btn-sm">回收站</button>
           </td>
         </tr>
         {/volist}
@@ -218,8 +217,9 @@
         data: { sid: sid },
         dataType: "JSON",
         success: function (res) {
+          console.log(res);
           if (res.success == 1) {
-            alert('删除成功')
+            // alert('删除成功')
             window.location.reload()
           }
         }

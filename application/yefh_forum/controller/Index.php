@@ -174,7 +174,9 @@ class Index extends Controller
         'rcontent' => input("rcontent"),
         'unick' => session("unick"),
         'rcreateat' => time(),
-        'mid' => input("mid")
+        'mid' => input("mid"),
+        'rdelat' => 0,
+        'rbin' => 0
       ];
       // 将数据插进数据库
       $re = db("res")->insert($res);
