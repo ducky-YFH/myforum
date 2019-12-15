@@ -42,9 +42,9 @@ class Advdeal extends Controller
       // ---------------判断图片格式---------------
       // 获取上传图片格式
       $type = $file->getInfo()["type"];
-      $types = ["image/x-icon", "image/png", "image/jpeg"];
+      $types = ["image/x-icon", "image/png", "image/jpeg", "image/gif"];
       if (!in_array($type, $types)) {
-        $this->error("只支持jpg,icon,png文件格式!");
+        $this->error("只支持jpg,icon,png,gif文件格式!");
       }
       // -----------限制图片上传大小，限定500k之内-----------
       // 获取图片大小
@@ -101,13 +101,13 @@ class Advdeal extends Controller
     if ($file) {
       // 获取图片久路径
       $dbImg = $dbData['aimg'];
-      $oldPath = ROOT_PATH . "public\static\upload\advimage\ad\\" . $dbImg;
+      $oldPath = ROOT_PATH . "public/static/upload/advimage/ad/" . $dbImg;
       // 判断图片格式
       // 获取上传图片格式
       $type = $file->getInfo()["type"];
-      $types = ["image/x-icon", "image/png", "image/jpeg"];
+      $types = ["image/x-icon", "image/png", "image/jpeg", "image/gif"];
       if (!in_array($type, $types)) {
-        $this->error("只支持jpg,icon,png文件格式!");
+        $this->error("只支持jpg,icon,png,gif文件格式!");
       }
       // 限制图片上传大小，限定500k之内
       // 获取图片大小
@@ -228,7 +228,7 @@ class Advdeal extends Controller
     if ($file) {
       // 获取图片久路径
       $dbImg = $dbData['cimg'];
-      $oldPath = ROOT_PATH . "public\static\upload\advimage\slide\\" . $dbImg;
+      $oldPath = ROOT_PATH . "public/static/upload/advimage/slide/" . $dbImg;
       // 判断图片格式
       // 获取上传图片格式
       $type = $file->getInfo()["type"];

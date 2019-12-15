@@ -26,7 +26,7 @@ class Index extends Controller
   public function showSec()
   {
     $re = db("section")
-      ->where('sbin',0)
+      ->where('sbin', 0)
       ->select();
     // 渲染、传递参数
     return $re;
@@ -49,6 +49,8 @@ class Index extends Controller
         unset($AD[$key]);
       }
     }
+    $ADLeft = array_slice($AD, 0, 5);
+    $ADRight = array_slice($AD, 6);
     // 前10个最新帖子
     $mes = db()
       ->view("mes", "mid,mtitle,mcontent,unick,mcreateat,sid")
@@ -64,7 +66,7 @@ class Index extends Controller
         unset($cData[$key]);
       }
     }
-    return view("", ["sec" => $sec, "AD" => $AD, "mes" => $mes, "cData" => $cData]);
+    return view("", ["sec" => $sec, "ADLeft" => $ADLeft, "ADRight" => $ADRight, "mes" => $mes, "cData" => $cData]);
   }
   // ----------------------1711140136-帖子列表页----------------------
   public function view($sid = 0)
@@ -253,8 +255,8 @@ class Index extends Controller
       // 判断是否成功存进数据库
       if ($re == 1) {
         // ---------------------删除旧头像---------------------
-        $oldPath = ROOT_PATH . "public\static\upload\avatar\\" . session("uimg");
-        $defaultPath = ROOT_PATH . "public\static\upload\avatar\\" . "default.png";
+        $oldPath = ROOT_PATH . "public/static/upload/avatar/" . session("uimg");
+        $defaultPath = ROOT_PATH . "public/static/upload/avatar/" . "default.png";
         if ($oldPath !== $defaultPath) {
           unlink($oldPath);
         }

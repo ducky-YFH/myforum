@@ -406,12 +406,22 @@ section .postTitle a{
 
 
 /* 广告 */
-#AD{
+#AD_left{
   position: absolute;
   left: 0;
   top: 11%;
 }
-#AD img{
+#AD_left img{
+  width: 300px;
+  display: block;
+}
+#AD_right{ 
+  position: absolute;
+  right: 0;
+  top: 11%;
+}
+
+#AD_right img{
   width: 300px;
   display: block;
 }

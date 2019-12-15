@@ -1,6 +1,6 @@
 .select-box {
   display: none;
-  position: absolute;
+  position: fixed;
   background: #fff;
   width: 400px;
   height: 200px;
@@ -104,6 +104,11 @@ label {
   top: 5px;
   left: 4px;
   transform: rotate(-45deg);
+}
+.wrapper {
+  position: relative;
+  width: 100%;
+  min-height: 100vh;;
 }
 .cover {
   display: none;

@@ -137,9 +137,17 @@
     });
   });
 </script>
-<!-- 插入广告位置 -->
-<div id="AD">
-  {volist name="AD" id="item"}
+<!-- 插入广告位置左边 -->
+<div id="AD_left">
+  {volist name="ADLeft" id="item"}
+  <a href="{$item.ahref}">
+    <img src="__STATIC__/upload/advimage/ad/{$item.aimg}" alt="">
+  </a>
+  {/volist}
+</div>
+
+<div id="AD_right">
+  {volist name="ADRight" id="item"}
   <a href="{$item.ahref}">
     <img src="__STATIC__/upload/advimage/ad/{$item.aimg}" alt="">
   </a>
