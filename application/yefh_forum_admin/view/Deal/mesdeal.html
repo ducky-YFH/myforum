@@ -86,7 +86,7 @@
   </div>
   <div class="content">
     <div class="mes-title">
-      <fieldset class="layui-elem-field layui-field-title" style="margin-top: 30px;">
+      <fieldset class="layui-elem-field layui-field-title">
         <legend>当前板块：<span data-cursid="<?php echo $section[0]['sid']; ?>"
             class="mes-current"><?php echo $section[0]['sname']; ?></span></legend>
       </fieldset>
@@ -114,96 +114,13 @@
         </tbody>
       </table>
     </div>
+    <div id="pager"></div>
   </div>
 </body>
 
 <script src="__STATIC__/common/layui/layui.js" charset="utf-8"></script>
 <script src="__STATIC__/common/jquery/jquery.js" charset="utf-8"></script>
 <script src="__STATIC__/common/toast/toast.js" charset="utf-8"></script>
-
-
-<script>
-  let toast = new Toast()
-  $(function () {
-    layui.use('element', function () {
-      var $ = layui.jquery
-        , element = layui.element; //Tab的切换功能，切换事件监听等，需要依赖element模块
-      $('.site-demo-active').on('click', function () {
-        var othis = $(this), type = othis.data('type');
-      });
-    });
-    // 获取表格元素
-    let $tbody = $(".table tbody");
-    // 获取板块选择元素
-    let $seleLi = $(".layui-tab-title li");
-    // 首次获取第一个板块数据
-    getData($tbody);
-    $seleLi.on('click', (e) => {
-      let $target = $(e.target)
-      let $sid = $target.data('sid')
-      $('.mes-current').html($target.html()).data('cursid', $sid)
-      getData($tbody, $sid)
-    })
-    // 跳转到编辑页
-    $('body').on('click', '.edit', function (e) {
-      let mid = $(e.target).parents('td').siblings('td').html();
-      $(location).attr('href', `resdeal?mid=${mid}`)
-    })
-    // 删除帖子
-    $('body').on('click', '.del', function (e) {
-      let $mid = $(e.target).parents('td').siblings('td').html();
-      deles($mid)
-    })
-  })
-
-  // 已进入页面先加载第一个板块的数据
-  function getData(tarEle, sid = 1) {
-    tarEle.children().remove()
-    $.ajax({
-      type: "get",
-      url: "showmes",
-      data: { 'sid': sid },
-      dataType: "json",
-      success: function (res) {
-        res.forEach((item, index) => {
-          tarEle.append(`
-            <tr>
-              <td data-mid="${item.id}">${item.mid}</td>
-              <td>${item.mtitle}</td>
-              <td>${new Date(item.mcreateat * 1000).toLocaleString()}</td>
-              <td>${item.unick}</td>
-              <td>
-                <button type="button" class="edit layui-btn layui-btn-normal layui-btn-sm">编辑</button>
-                <button type="button" class="del layui-btn layui-btn-danger layui-btn-sm">删除</button>
-              </td>
-            </tr>
-          `)
-        });
-      }
-    });
-  }
-
-  function deles(mid) {
-    $.ajax({
-      type: "get",
-      url: "delmes",
-      data: { "mid": mid },
-      dataType: "json",
-      success: function (response) {
-        console.log(response);
-        if (response.success == 1) {
-          let cursid = $('.mes-current').data('cursid')
-          toast.success('删除成功！')
-          getData($(".table tbody"), cursid)
-        } else {
-          toast.danger('删除失败！')
-        }
-      },
-      error: function () {
-        toast.danger('服务器翻车了！')
-      }
-    });
-  }
-</script>
+<script src="__STATIC__/js/admin/mesdeal.js" charset="utf-8"></script>
 
 </html>

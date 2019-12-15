@@ -163,4 +163,8 @@ class Deal extends Controller
     exit(json_encode($sRes, JSON_UNESCAPED_UNICODE));
   }
   // -------------------------------------------------------------
+  public function missError()
+  {
+    $this->error("你访问的页面不存在！", "yefh_forum_admin/deal/index");
+  }
 }

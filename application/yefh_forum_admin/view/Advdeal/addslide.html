@@ -9,7 +9,7 @@
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
-  
+
   <style>
     .input-img {
       position: relative;
@@ -93,7 +93,7 @@
         </a>
       </li>
       <li>
-          <a href="{:url('yefh_forum/index/index')}">
+        <a href="{:url('yefh_forum/index/index')}">
           <span class="layui-icon layui-icon-fonts-html"></span>
           <span>论坛前台</span>
         </a>
@@ -101,6 +101,9 @@
     </ul>
   </div>
   <div class="content">
+    <fieldset class="layui-elem-field layui-field-title">
+      <legend style="margin-left: 43%;">添加轮播图</legend>
+    </fieldset>
     <form class="layui-form" action="{:url('yefh_forum_admin/advdeal/doAddSlide')}" enctype="multipart/form-data"
       method="post">
       <div class="layui-form-item">

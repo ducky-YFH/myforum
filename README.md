@@ -1,6 +1,6 @@
 # 故事交流论坛
 
-## 项目预览地址：http://47.94.17.221:83/public/index.php/myforum.html
+## 项目预览地址：http://47.94.17.221:83/public/index.php/home/myforum.html
 
 ## 一. 请先下载thinkphp框架：
 - 下载地址：http://www.thinkphp.cn/down.html

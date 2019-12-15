@@ -51,7 +51,9 @@
     <section>
       <div class="postTitle">
         <h1>{$nowSec}</h1>
+        {if condition="$nowSec !== '所有帖子'"}
         <a class="postBtn" href="{:url('yefh_forum/index/post',['sid' => input('sid'), 'nowSec' => $nowSec])}">去发布帖子</a>
+        {/if}
       </div>
       {volist name="mes" id="mesrow"}
       <div class="cart-box">

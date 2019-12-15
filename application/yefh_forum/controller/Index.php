@@ -53,6 +53,7 @@ class Index extends Controller
       ->view("mes", "mid,mtitle,mcontent,unick,mcreateat,sid")
       ->view("user", "uimg", "mes.unick=user.unick")
       ->order('mcreateat desc')
+      ->where('mbin',0)
       ->limit(0, 10)
       ->select();
     // 轮播图
@@ -74,6 +75,7 @@ class Index extends Controller
         ->view("mes", "mid,mtitle,mcontent,unick,mcreateat,sid")
         ->view("user", "uimg", "mes.unick=user.unick")
         ->order('mcreateat desc')
+        ->where('mbin', 0)
         ->paginate(6);
     } else {
       // 如果传入的sid不存在就显示不合法
@@ -84,7 +86,7 @@ class Index extends Controller
       $mes = db()
         ->view("mes", "mid,mtitle,mcontent,unick,mcreateat,sid")
         ->view("user", "uimg", "mes.unick=user.unick")
-        ->where("sid", $sid)
+        ->where(array("sid" => $sid, "mbin" => 0))
         ->order('mcreateat desc')
         ->paginate(6);
     }
@@ -122,7 +124,9 @@ class Index extends Controller
         'mcontent' => input("mcontent"),
         'unick' => session('unick'),
         'mcreateat' => time(),
-        'sid' => input("sid")
+        'sid' => input("sid"),
+        'mbin' => 0,
+        'mdelat' => 0
       ];
       // 写入帖子
       $re = db("mes")
@@ -150,13 +154,13 @@ class Index extends Controller
       ->view("mes", "mtitle,mcontent,unick,mcreateat")
       ->view("user", "uimg", "mes.unick=user.unick")
       ->view("section", "sname", "section.sid=mes.sid")
-      ->where("mid", $mid)
+      ->where(array("mid" => $mid, "mbin" => 0))
       ->find();
     // 查询和这个帖子有关的评论，根据mid（帖子编号）
     $res = db()
       ->view("res", "rcontent,unick,rcreateat")
       ->view("user", "uimg", "res.unick=user.unick")
-      ->where("mid", $mid)
+      ->where(array("mid" => $mid, "rbin" => 0))
       ->paginate(5);
     // ->select();
     $page = $res->render();
@@ -282,14 +286,3 @@ class Index extends Controller
     $this->error("你访问的页面不存在！", "yefh_forum/index/index");
   }
 }
-
-// ++++++++++++++++++view++++++++++++++++++
-// if (input("sid")) {
-      // ->select();
-// } 
-// else {
-//   $mes = db()
-//       ->view("mes","mid,mtitle,mcontent,unick,mcreateat,sid")
-//       ->view("user", "uimg", "mes.unick=user.unick")
-//       ->paginate(6);
-// }

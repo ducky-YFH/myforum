@@ -3,6 +3,7 @@
 
 <head>
   <meta charset="UTF-8">
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
   <meta name="viewport"
     content="width=device-width, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0, user-scalable=no" />
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
@@ -50,19 +51,20 @@
       </div>
     </header>
     <!-- 主体内容 -->
-    <form action="{:url('yefh_forum/index/doPost')}" method="post">
+    <form class="layui-form" action="{:url('yefh_forum/index/doPost')}" method="post">
       <section>
         <div class="post-title">
           <label for="title-input">标题</label>
-          <input type="text" id="title-input" name="mtitle">
+          <input class="layui-input" type="text" id="title-input" name="mtitle" required lay-verify="required">
           <label for="post-type">帖子类型</label>
-          <select id="post-type" name="sid">
+          <select name="sid" lay-verify="required">
+            <option value=""></option>
             {if condition="input('sid') != ''"}
-              <option value= "<?php echo input('sid') ?>" ><?php echo input('nowSec') ?></option>
+            <option value="<?php echo input('sid') ?>"><?php echo input('nowSec') ?></option>
             {else}
-              {volist name="sec" id="secrow"}
-              <option value="{$secrow.sid}">{$secrow.sname}</option>
-              {/volist}
+            {volist name="sec" id="secrow"}
+            <option value="{$secrow.sid}">{$secrow.sname}</option>
+            {/volist}
             {/if}
           </select>
         </div>
@@ -73,7 +75,7 @@
           <!--可使用 min-height 实现编辑区域自动增加高度-->
           <p>请输入内容</p>
         </div>
-        <button class="layui-btn layui-btn-lg layui-btn-normal" id="submitBtn"
+        <button class="layui-btn layui-btn-lg layui-btn-normal" lay-submit lay-filter="formDemo" id="submitBtn"
           style="background-color: #8829ff; margin-top:20px">提交</button>
       </section>
     </form>
@@ -110,8 +112,17 @@
   </div>
 </body>
 <script src="__STATIC__/common/jquery/jquery.js"></script>
+<script src="__STATIC__/common/layui/layui.js" charset="utf-8"></script>
 <script src="__STATIC__/common/wangEditor/wangEditor.min.js"></script>
+
 <script>
+  // 表单审查
+  layui.use('form', function () {
+    var form = layui.form;
+    form.on('submit(formDemo)', function (data) {
+    });
+  });
+  // 富文本
   var E = window.wangEditor
   var editor = new E('#toolbar', '#editor-content')  // 两个参数也可以传入 elem 对象，class 选择器
   editor.create()
@@ -126,10 +137,9 @@
       $(this).css('border', '1px solid #1e9fff')
     })
     // 监视屏幕的变化改变
-    console.log($(document).width())
-    if($(window).width() < 400){
+    if ($(window).width() < 400) {
       $('[for=post-type]').hide()
-      $("#post-type").css({'width': '50px', 'fontSize': '10px'})
+      $("#post-type").css({ 'width': '50px', 'fontSize': '10px' })
     }
   })
 </script>

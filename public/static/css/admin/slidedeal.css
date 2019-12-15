@@ -1,6 +1,3 @@
-.title {
-  margin-bottom: 10px;
-}
 .layui-carousel {
   width: 100% !important;
   height: 800px !important;
@@ -42,6 +39,9 @@
   position: relative;
   width: 100%;
   height: 100%;
+}
+.addBtn{
+  margin-bottom: 10px;
 }
 .td-cremark {
   padding-top: 40px !important;
