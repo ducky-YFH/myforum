@@ -8,9 +8,16 @@ $(function () {
     });
   });
   // 获取表格元素
-  window.$tbody = $(".table tbody");
+  window.$tbody = $(".table tbody")
+  // 全局数据容器
+  window.dataList = [];
+  // 当前页数
+  window.currPage = 1;
+  // 每页限定的页数
+  window.limit = 7;
+
   // 获取板块选择元素
-  let $seleLi = $(".layui-tab-title li");
+  let $seleLi = $(".layui-tab-title li")
   // 首次获取第一个板块数据
   getData();
   $seleLi.on('click', (e) => {
@@ -41,7 +48,8 @@ function getData(sid = 1) {
     data: { 'sid': sid },
     dataType: "json",
     success: function (res) {
-      page(5, res);
+      dataList = res
+      page();
     }
   });
 }
@@ -58,6 +66,12 @@ function deles(mid, tr) {
         let cursid = $('.mes-current').data('cursid')
         toast.success('删除成功！')
         tr.remove()
+        dataList = dataList.filter((item, index) => {
+          return item.mid != mid
+        })
+        if (Math.floor(dataList.length % limit) == 0) {
+          page()
+        }
       } else {
         toast.danger('删除失败！')
       }
@@ -69,8 +83,8 @@ function deles(mid, tr) {
 }
 
 // 分页
-function page(limit, data) {
-  let count = data.length;
+function page() {
+  let count = dataList.length;
   let dataPage = [];
   layui.use(['laypage', 'layer'], function () {
     var laypage = layui.laypage
@@ -80,17 +94,18 @@ function page(limit, data) {
       elem: 'pager',
       count: count,
       limit: limit,
-      curr: 1,
+      curr: currPage,
       theme: '#4e66f1',
       jump: function (obj, first) {
+        currPage = obj.curr
         // 第一次进入
         if (first) {
-          dataPage = data.slice(0, limit)
+          dataPage = dataList.slice(0, limit)
           showData(dataPage)
         }
         // 第二次进入
         if (!first) {
-          dataPage = data.slice(limit * (obj.curr - 1), limit * obj.curr)
+          dataPage = dataList.slice(limit * (currPage - 1), limit * currPage)
           showData(dataPage)
         }
       }
@@ -99,9 +114,9 @@ function page(limit, data) {
 }
 
 // 分页显示数据
-function showData(dataList) {
+function showData(dataPage) {
   $tbody.empty()
-  dataList.forEach((item, index) => {
+  dataPage.forEach((item, index) => {
     $tbody.append(`
       <tr>
         <td data-mid="${item.id}">${item.mid}</td>

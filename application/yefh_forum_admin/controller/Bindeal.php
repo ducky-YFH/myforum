@@ -92,7 +92,7 @@ class Bindeal extends Controller
     exit(json_encode($response, JSON_UNESCAPED_UNICODE));
   }
   // 彻底删除帖子
-  public function delmes()
+  public function removeMes()
   {
     // 删除其下的所有评论
     db('res')->where('mid', input('mid'))->delete();
@@ -135,7 +135,7 @@ class Bindeal extends Controller
     exit(json_encode($response, JSON_UNESCAPED_UNICODE));
   }
   // 彻底删除回复
-  public function delRes()
+  public function removeRes()
   {
     $this->check();
     // 将帖子下面的所有回复放入回收站

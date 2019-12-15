@@ -26,6 +26,7 @@ class Index extends Controller
   public function showSec()
   {
     $re = db("section")
+      ->where('sbin',0)
       ->select();
     // 渲染、传递参数
     return $re;

@@ -73,11 +73,11 @@ return [
     'binmes' => 'yefh_forum_admin/bindeal/binmes',
     'secMes' => 'yefh_forum_admin/bindeal/secMes',
     'backMes' => 'yefh_forum_admin/bindeal/backMes',
-    'delmes' => 'yefh_forum_admin/bindeal/delmes',
+    'removemes' => 'yefh_forum_admin/bindeal/removemes',
     'binres' => 'yefh_forum_admin/bindeal/binres',
     'secRes' => 'yefh_forum_admin/bindeal/secRes',
     'backRes' => 'yefh_forum_admin/bindeal/backRes',
-    'delRes' => 'yefh_forum_admin/bindeal/delRes',
+    'removeRes' => 'yefh_forum_admin/bindeal/removeRes',
     // 广告管理
     'ad' => 'yefh_forum_admin/advdeal/ad',
     'addadv' => 'yefh_forum_admin/advdeal/addadv',

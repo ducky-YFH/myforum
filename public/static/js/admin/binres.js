@@ -21,7 +21,7 @@ $(function () {
     let $tr = $(this).parents('tr')
     $.ajax({
       type: "post",
-      url: "delres",
+      url: "removeres",
       data: { 'rid': $rid },
       dataType: "JSON",
       success: function (res) {

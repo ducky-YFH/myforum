@@ -60,7 +60,7 @@
           <select name="sid" lay-verify="required">
             <option value=""></option>
             {if condition="input('sid') != ''"}
-            <option value="<?php echo input('sid') ?>"><?php echo input('nowSec') ?></option>
+            <option value="<?php echo input('sid') ?>"><?php echo urldecode(input('nowSec')) ?></option>
             {else}
             {volist name="sec" id="secrow"}
             <option value="{$secrow.sid}">{$secrow.sname}</option>

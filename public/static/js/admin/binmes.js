@@ -22,7 +22,7 @@ $(function () {
     let $tr = $(this).parents('tr')
     $.ajax({
       type: "post",
-      url: "delmes",
+      url: "removemes",
       data: { 'mid': $mid },
       dataType: "JSON",
       success: function (res) {
