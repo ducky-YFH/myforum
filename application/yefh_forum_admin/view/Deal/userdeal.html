@@ -8,6 +8,7 @@
   <title>用户管理</title>
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
+  <link rel="stylesheet" href="__CSS__/admin/userdeal.css">
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__CSS__/admin/selectbox.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
@@ -90,6 +91,12 @@
       <fieldset class="layui-elem-field layui-field-title">
         <legend>用户管理</legend>
       </fieldset>
+      <div class="search-box">
+        <div class="layui-input-inline" style="width: 100px;">
+          <input type="text" name="price_min" placeholder="搜索用户" autocomplete="off" class="layui-input searchInput">
+        </div>
+        <button class="layui-btn layui-btn-normal searchBtn">搜索</button>
+      </div>
       <table class="table">
         <!-- Replace "table" with any of the design numbers -->
         <thead>

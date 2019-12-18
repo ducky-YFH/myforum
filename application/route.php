@@ -58,9 +58,12 @@ return [
     'delmes' => 'yefh_forum_admin/deal/delmes',
     'resdeal' => 'yefh_forum_admin/deal/resdeal',
     'delres' => 'yefh_forum_admin/deal/delres',
+    'searchMes' => 'yefh_forum_admin/deal/searchMes',
+    // http://directory.io/yfh136/public/index.php/admin/searchMes.html/search/%E5%B9%BD
     // 用户管理
     'userdeal' => 'yefh_forum_admin/deal/userdeal',
     'userPower' => 'yefh_forum_admin/deal/userPower',
+    'searchUser' => 'yefh_forum_admin/deal/searchUser',
     // 板块管理操作
     'sectiondeal' => 'yefh_forum_admin/deal/sectiondeal',
     'addSection' => 'yefh_forum_admin/deal/addSection',
@@ -78,6 +81,8 @@ return [
     'secRes' => 'yefh_forum_admin/bindeal/secRes',
     'backRes' => 'yefh_forum_admin/bindeal/backRes',
     'removeRes' => 'yefh_forum_admin/bindeal/removeRes',
+    'searchBinmes' => 'yefh_forum_admin/bindeal/searchBinmes',
+    'searchBinres' => 'yefh_forum_admin/bindeal/searchBinres',
     // 广告管理
     'ad' => 'yefh_forum_admin/advdeal/ad',
     'addadv' => 'yefh_forum_admin/advdeal/addadv',

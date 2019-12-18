@@ -4,6 +4,8 @@ $(function () {
   let toast = new Toast()
   let $tbody = $('.tbody');
   let $sid = 0;
+  let $searchBtn = $('.searchBtn')
+  let $searchInput = $(".searchInput")
   // 筛选回复
   $('.section-box').on('change', function (e) {
     $sid = $(this).val();
@@ -32,6 +34,10 @@ $(function () {
       }
     });
   })
+  // 搜索回复功能
+  $searchBtn.on('click', function () {
+    searchBinres($searchInput.val())
+  })
   // 筛选回复
   function getResdata(sid) {
     $.ajax({
@@ -42,25 +48,12 @@ $(function () {
       success: function (res) {
         $tbody.children().remove()
         if (res.success == 1) {
-          res.resLs.forEach(item => {
-            $tbody.append(`<tr>
-              <td class="rid">${item.rid}</td>
-              <td>${item.mtitle}</td>
-              <td>${item.rcontent}</td>
-              <td>${new Date(item.rcreateat * 1000).toLocaleString()}</td>
-              <td>${item.unick}</td>
-              <td>${new Date(item.rdelat * 1000).toLocaleString()}</td>
-              <td>
-                <button class="delBtn layui-btn layui-btn-danger layui-btn-sm" data-sid="" href="">彻底删除</button>
-                ${item.rbin > 1 ? '<button class="backBtn layui-btn layui-btn-primary layui-btn-sm" data-sid="" href="">还原</button>' : ''}
-              </td>
-              <td>${filterRbin(item.rbin)}</td>
-            </tr>`)
-          });
+          template(res)
         }
       }
     });
   }
+
   // 格式化rbin
   function filterRbin(rbin) {
     if (rbin == 1) {
@@ -69,6 +62,7 @@ $(function () {
       return '删除帖子'
     }
   }
+
   // 还原回复
   function backRes(tr, rid) {
     $.ajax({
@@ -83,6 +77,40 @@ $(function () {
           tr.remove()
         }
       }
+    });
+  }
+  // 搜索功能
+  function searchBinres(keyval) {
+    $.ajax({
+      type: "get",
+      url: "searchBinres",
+      data: { search: keyval },
+      dataType: "JSON",
+      success: function (res) {
+        $tbody.children().remove()
+        if (res.success == 1) {
+          console.log(res);
+          template(res)
+        }
+      }
+    });
+  }
+  // 模板数据
+  function template(res) {
+    res.resLs.forEach(item => {
+      $tbody.append(`<tr>
+        <td class="rid">${item.rid}</td>
+        <td>${item.mtitle}</td>
+        <td>${item.rcontent}</td>
+        <td>${new Date(item.rcreateat * 1000).toLocaleString()}</td>
+        <td>${item.unick}</td>
+        <td>${new Date(item.rdelat * 1000).toLocaleString()}</td>
+        <td>
+          <button class="delBtn layui-btn layui-btn-danger layui-btn-sm" data-sid="" href="">彻底删除</button>
+          ${item.rbin > 1 ? '<button class="backBtn layui-btn layui-btn-primary layui-btn-sm" data-sid="" href="">还原</button>' : ''}
+        </td>
+        <td>${filterRbin(item.rbin)}</td>
+      </tr>`)
     });
   }
 })

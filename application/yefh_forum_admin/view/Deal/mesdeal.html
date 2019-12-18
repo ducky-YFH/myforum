@@ -9,6 +9,7 @@
   <link rel="stylesheet" href="__CSS__/reset.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="__CSS__/admin/nav.css">
+  <link rel="stylesheet" href="__CSS__/admin/mesdeal.css">
   <link rel="stylesheet" href="__CSS__/admin/table.css">
   <link rel="stylesheet" href="__STATIC__/common/layui/css/layui.css" media="all">
   <link rel="stylesheet" href="__STATIC__/common/toast/toast.css">
@@ -98,6 +99,12 @@
           <?php endforeach ?>
         </ul>
       </div>
+    </div>
+    <div class="search-box">
+      <div class="layui-input-inline" style="width: 100px;">
+        <input type="text" name="price_min" placeholder="搜索帖子" autocomplete="off" class="layui-input searchInput">
+      </div>
+      <button	class="layui-btn layui-btn-normal searchBtn">搜索</button>
     </div>
     <div class="mes-content">
       <table class="table">

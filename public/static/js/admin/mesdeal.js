@@ -15,7 +15,10 @@ $(function () {
   window.currPage = 1;
   // 每页限定的页数
   window.limit = 7;
-
+  // 搜索框
+  let $searchInput = $(".searchInput")
+  // 搜索按钮
+  let $searchBtn = $('.searchBtn');
   // 获取板块选择元素
   let $seleLi = $(".layui-tab-title li")
   // 首次获取第一个板块数据
@@ -36,6 +39,10 @@ $(function () {
     let $mid = $(e.target).parents('td').siblings('td').html();
     let $tr = $(this).parents('tr')
     deles($mid, $tr)
+  })
+  // 搜索帖子
+  $searchBtn.on('click', function(){
+    searchMes($searchInput.val())
   })
 })
 
@@ -129,5 +136,19 @@ function showData(dataPage) {
         </td>
       </tr>
     `)
+  });
+}
+
+// 搜索帖子
+function searchMes(searchVal){
+  $.ajax({
+    type: "post",
+    url: "searchMes",
+    data: {search: searchVal},
+    dataType: "JSON",
+    success: function (res) {
+      dataList = res
+      page()
+    }
   });
 }

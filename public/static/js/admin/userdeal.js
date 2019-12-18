@@ -4,6 +4,14 @@ $(function () {
   let $unick, $curpower = '';
   let $editBtn = $(".editBtn")
   let $selectList = ['能正常登录，正常发言', '能正常登录，禁止发言', '禁止登录，禁止发言']
+  let $tbody = $('tbody')
+  // 搜索按钮
+  let $searchBtn = $(".searchBtn")
+  // 搜索关键字
+  let $searchInput = $(".searchInput")
+  $searchBtn.on('click', function () {
+    searchUser($searchInput.val())
+  })
   // 根据不同权限添加颜色
   updateColor()
   // 修改
@@ -49,5 +57,9 @@ $(function () {
         $(item).css('color', '#63b173')
       }
     })
+  }
+  // 搜索用户
+  function searchUser(unick) {
+    $(location).attr('href', `searchUser?unick=${unick}`)
   }
 })

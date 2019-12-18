@@ -1,6 +1,8 @@
 $(function () {
   layui.use('form', function () {
   });
+  let $searchBtn = $('.searchBtn')
+  let $searchInput = $(".searchInput")
   let $tbody = $('.tbody')
   let $sid = 0
   let $delBtn = $('.delBtn')
@@ -34,6 +36,10 @@ $(function () {
       }
     });
   })
+  // 搜索帖子功能
+  $searchBtn.on('click', function () {
+    searchBinmes($searchInput.val())
+  })
   // 筛选帖子
   function getMesdata(sid) {
     $.ajax({
@@ -44,20 +50,7 @@ $(function () {
       success: function (res) {
         $tbody.children().remove()
         if (res.success == 1) {
-          res.mesLs.forEach(item => {
-            $tbody.append(`<tr>
-              <td class="mid">${item.mid}</td>
-              <td>${item.mtitle}</td>
-              <td>${new Date(item.mcreateat * 1000).toLocaleString()}</td>
-              <td>${item.unick}</td>
-              <td>${new Date(item.mdelat * 1000).toLocaleString()}</td>
-              <td>
-                <button class="delBtn layui-btn layui-btn-danger layui-btn-sm" data-sid="" href="">彻底删除</button>
-                ${item.mbin > 1 ? '<button class="backBtn layui-btn layui-btn-primary layui-btn-sm" data-sid="" href="">还原</button>' : ''}
-              </td>
-              <td>${filterMbin(item.mbin)}</td>
-            </tr>`)
-          });
+          template(res)
         }
       }
     });
@@ -82,6 +75,39 @@ $(function () {
           tr.remove()
         }
       }
+    });
+  }
+  // 搜索帖子
+  function searchBinmes(keyval) {
+    $.ajax({
+      type: "get",
+      url: "searchBinmes",
+      data: { search: keyval },
+      dataType: "JSON",
+      success: function (res) {
+        $tbody.children().remove()
+        if (res.success == 1) {
+          console.log(res);
+          template(res)
+        }
+      }
+    });
+  }
+  // 数据模板
+  function template(res) {
+    res.mesLs.forEach(item => {
+      $tbody.append(`<tr>
+        <td class="mid">${item.mid}</td>
+        <td>${item.mtitle}</td>
+        <td>${new Date(item.mcreateat * 1000).toLocaleString()}</td>
+        <td>${item.unick}</td>
+        <td>${new Date(item.mdelat * 1000).toLocaleString()}</td>
+        <td>
+          <button class="delBtn layui-btn layui-btn-danger layui-btn-sm" data-sid="" href="">彻底删除</button>
+          ${item.mbin > 1 ? '<button class="backBtn layui-btn layui-btn-primary layui-btn-sm" data-sid="" href="">还原</button>' : ''}
+        </td>
+        <td>${filterMbin(item.mbin)}</td>
+      </tr>`)
     });
   }
 })

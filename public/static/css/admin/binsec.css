@@ -47,3 +47,20 @@
 .select-box select:focus {
   outline: none;
 }
+
+.search-box{
+  display: inline-block;
+}
+
+.layui-input-inline{
+  width: 240px !important;
+}
+
+.layui-input{
+  height: 45px;
+}
+
+.searchBtn{
+  height: 45px;
+  padding: 0 30px;
+}

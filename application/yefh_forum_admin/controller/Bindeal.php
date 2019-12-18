@@ -103,6 +103,20 @@ class Bindeal extends Controller
     header('Content-Type:application/json; charset=utf-8');
     exit(json_encode($response, JSON_UNESCAPED_UNICODE));
   }
+  // 搜索回收站帖子
+  public function searchBinmes()
+  {
+    $this->check();
+    // $section = db('section')->select();
+    $mes = db()
+      ->view("mes", "mid,mtitle,unick,mcreateat,mbin")
+      ->where("mtitle", "LIKE", "%" . input("search") . "%")
+      ->where("mbin > 0")
+      ->select();
+    empty($mes) ? $response = ['success' => 0] : $response = ['success' => 1, 'mesLs' => $mes];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));
+  }
   // 回复显示
   public function binres()
   {
@@ -141,6 +155,20 @@ class Bindeal extends Controller
     // 将帖子下面的所有回复放入回收站
     $rRes = db('res')->where('rid', input('rid'))->delete();
     $rRes >= 1 ? $response = ['success' => 1] : $response = ['success' => 0];
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($response, JSON_UNESCAPED_UNICODE));
+  }
+  // 搜索回复
+  public function searchBinres()
+  {
+    $this->check();
+    $resLs = db('section')
+      ->join("yefh_mes", "yefh_mes.sid = yefh_section.sid")
+      ->join("yefh_res", "yefh_res.mid = yefh_mes.mid")
+      ->where("rcontent", "LIKE", "%" . input("search") . "%")
+      ->where("yefh_res.rbin > 0")
+      ->select();
+    empty($resLs) ? $response = ['success' => 0] : $response = ['success' => 1, 'resLs' => $resLs];
     header('Content-Type:application/json; charset=utf-8');
     exit(json_encode($response, JSON_UNESCAPED_UNICODE));
   }

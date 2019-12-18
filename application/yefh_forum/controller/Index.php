@@ -108,6 +108,10 @@ class Index extends Controller
   public function post()
   {
     $this->check();
+    $power = $this->checkPower();
+    if ($power === '能正常登录，正常发言') {
+      $this->error("没有权限，请联系管理员");
+    }
     $sec = $this->showSec();
     return view("", ["sec" => $sec]);
   }

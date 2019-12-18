@@ -65,6 +65,17 @@ class Deal extends Controller
     header('Content-Type:application/json; charset=utf-8');
     exit(json_encode($response, JSON_UNESCAPED_UNICODE));
   }
+  // 搜索帖子功能
+  public function searchMes()
+  {
+    $mes = db()
+      ->view("mes", "mid,mtitle,unick,mcreateat")
+      -> where("mtitle","LIKE","%".input("search")."%")
+      -> where("mbin",0)
+      ->select();
+    header('Content-Type:application/json; charset=utf-8');
+    exit(json_encode($mes, JSON_UNESCAPED_UNICODE));
+  }
   // -------------------------------------------------------------
 
   // ---------------------------回复操作---------------------------
@@ -114,6 +125,12 @@ class Deal extends Controller
     header('Content-Type:application/json; charset=utf-8');
     exit(json_encode($response, JSON_UNESCAPED_UNICODE));
   }
+  // 搜索用户功能
+  public function searchUser(){
+    $user = db('user')->where("unick","LIKE","%".input("unick")."%")->select();
+    return view('userdeal', ['user' => $user]);
+  }
+  // 
   // -------------------------------------------------------------
   // -------------------------板块管理操作-------------------------
   // 板块显示
